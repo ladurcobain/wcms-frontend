@@ -1,0 +1,217 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Routing\Controller;
+use Illuminate\Pagination\LengthAwarePaginator;
+use App\Helpers\Module;
+use App\Helpers\Curl;
+use Session;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ReportContactusExcell;
+
+class ReportContactUsController extends Controller
+{
+    private $title = "Laporan";
+    private $subtitle = "Kritik & Saran";
+    private $path = 'report/contact-us/search';
+    
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+
+    public function index() {
+        // unset session
+		Session::forget('q');  
+        Session::forget('satker');
+        Session::forget('start');
+        Session::forget('end');
+
+        return redirect()->route('contact-us.search');
+	}
+
+    public function search()
+    {
+        if(Session::get('user_type') == 2) {
+            if(Session::get('satker') == "") {
+                $satker = Session::get('satker_id'); 
+            }
+            else {
+                $satker = Session::get('satker'); 
+            }
+
+            $data['satkers'] = Module::getLevelingSatker(Session::get('satker_id'));
+        }
+        else {
+            $satker = Session::get('satker');  
+            $data['satkers'] = Module::getActiveSatker();
+        }
+
+        $q = Session::get('q');  
+        $start = Session::get('start');   
+        $end = Session::get('end');
+
+        $now = Carbon::now();
+        $firstDay = $now->firstOfMonth(); 
+        $startDay = Carbon::createFromFormat('Y-m-d H:i:s', $firstDay)
+                    ->format('d-m-Y'); 
+        $lastDay = $now->lastOfMonth();        
+        $endDay  = Carbon::createFromFormat('Y-m-d H:i:s', $lastDay)
+                    ->format('d-m-Y'); 
+
+        $start = (($start == "")?$startDay:$start);
+        $end   = (($end == "")?$endDay:$end);
+        
+        $data['q'] = $q;
+        $data['satker'] = $satker;
+        $data['start'] = $start;
+        $data['end'] = $end;
+        
+        $data['title'] = $this->title;
+        $data['subtitle'] = $this->subtitle;
+       
+        $page = request()->has('page') ? request('page') : 1;
+        $perPage = request()->has('per_page') ? request('per_page') : 10;
+        $offset = ($page * $perPage) - $perPage;
+
+        $uri = Curl::endpoint();
+        $url = $uri .'/'.'activity/get-contactus';
+        $param = array(
+            'limit'     => $perPage,
+            'offset'    => $offset,
+            'satker_id' => $satker,
+            'user_id'   => Session::get('user_id'),
+            'start'     => Carbon::createFromFormat('d-m-Y', $start)->format('Y-m-d'),
+            'end'       => Carbon::createFromFormat('d-m-Y', $end)->format('Y-m-d'),
+            'name'      => (($q == null)?"":$q),
+        );
+
+        $res = Curl::requestPost($url, $param);
+
+        $newCollection = collect($res->data->lists);
+        $results =  new LengthAwarePaginator(
+            $newCollection,
+            $res->data->total,
+            $perPage,
+            $page,
+            ['path' => url($this->path)]
+        );
+        
+        return view('report.contactus.index', $data, compact('results'));
+    }
+
+    public function filter(Request $request)
+    {
+        if($request->has('_token')) {
+            $q      = $request->q;
+            $satker = $request->satker;
+            $start  = $request->start;
+            $end    = $request->end;
+
+            Session::put('q', $q); 
+            Session::put('satker', $satker); 
+            Session::put('start', $start); 
+            Session::put('end', $end); 
+            
+            return redirect()->route('contact-us.search');
+        } else {
+            return redirect()->route('contact-us.index');
+        }
+    }
+
+    public function destroy($id)
+    {
+        $uri = Curl::endpoint();
+        $url = $uri .'/'.'contact-us/delete-data';
+        
+        $param = array(
+            'contactus_id'  => $id,
+            'last_user'     => Session::get('user_id'),
+        );
+            
+        $res = Curl::requestPost($url, $param);
+        
+        Session::flash('alrt', (($res->status == false)?'error':'success'));    
+        Session::flash('msgs', $res->message);  
+
+        return redirect()->route('contact-us.search');
+    }
+
+    public function detail($id)
+    {
+        $data['title'] = $this->title;
+        $data['subtitle'] = $this->subtitle;
+        
+        $uri = Curl::endpoint();
+        $url = $uri .'/'.'contact-us/get-single';
+        
+        $param = array(
+            'contactus_id' => $id,
+        );
+            
+        $res = Curl::requestPost($url, $param);
+        
+        if($res->status == true) {
+            if(Session::get('user_type') == 2) {
+                if(Session::get('satker_id') != $res->data->satker_id) {
+                    Session::flash('alrt', 'error');    
+                    Session::flash('msgs', 'Data tidak ditemukan'); 
+                    
+                    return redirect()->route('contact-us.search');
+                }
+            }
+
+            $data['status']  = $res->status;
+            $data['message'] = $res->message;
+            $data['info']    = $res->data; 
+
+            return view('report.contactus.detail', $data);
+        }
+        else {
+            Session::flash('alrt', 'error');    
+            Session::flash('msgs', $res->message);  
+            
+            return redirect()->route('contact-us.search');
+        }
+    }
+
+    public function excell(Request $request)
+    {
+        return Excel::download(new ReportContactusExcell($request->_q, $request->_satker, $request->_start, $request->_end), 'laporan-kritik-saran.xlsx');
+    }
+
+    public function download(Request $request)
+    {
+        $q = $request->_q;
+        $satker = $request->_satker;
+        $start = $request->_start;
+        $end = $request->_end;
+
+        $uri = Curl::endpoint();
+        $url = $uri .'/'.'activity/get-contactus';
+        $param = array(
+            'satker_id' => $satker,
+            'user_id'   => Session::get('user_id'),
+            'start'     => Carbon::createFromFormat('d-m-Y', $start)->format('Y-m-d'),
+            'end'       => Carbon::createFromFormat('d-m-Y', $end)->format('Y-m-d'),
+            'limit'     => 1000,
+            'offset'    => 0,
+            'name'      => $q
+        );
+
+        $res = Curl::requestPost($url, $param);
+        if($res->status == true) {
+            $data['list']    = $res->data->lists; 
+        }
+        else {
+            Session::flash('alrt', 'error');    
+            Session::flash('msgs', $res->message);  
+            
+            return redirect()->route('contact-us.search');
+        }
+    }
+}
