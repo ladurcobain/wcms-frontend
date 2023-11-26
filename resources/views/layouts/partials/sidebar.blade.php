@@ -12,16 +12,6 @@
     <div class="nano-content">
         <nav id="menu" class="nav-main" role="navigation">
             <ul class="nav nav-main">
-                <li>
-                    <?php if(Session::get('user_type') == 1) { ?>
-                    <a class="nav-link" target="_blank" href="<?php echo Curl::landingUrl(); ?>">
-                    <?php } else { ?>
-                    <a class="nav-link" target="_blank" href="<?php echo Curl::landingUrl() . Session::get('satker_slug') .'/home'; ?>">
-                    <?php } ?>
-                        <i class="bx bx-globe" aria-hidden="true"></i>
-                        <span>Pratinjau Website</span>
-                    </a>
-                </li>
                 <li class="{{ Request::is('dashboard*') ? 'nav-active' : '' }}">
                     <a class="nav-link" href="{{ route('dashboard.index') }}">
                         <i class="bx bx-home" aria-hidden="true"></i>
