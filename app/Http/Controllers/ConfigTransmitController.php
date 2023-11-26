@@ -10,7 +10,7 @@ class ConfigTransmitController extends Controller
 {
     private $module = 202;
     private $title = "Pengaturan";
-    private $subtitle = "Kirim Notifikasi";
+    private $subtitle = "Notifikasi";
 
     /**
      * Display a listing of the resource.
