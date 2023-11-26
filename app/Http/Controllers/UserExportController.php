@@ -73,7 +73,7 @@ class UserExportController extends Controller
             ['path' => url($this->path)]
         );
         
-        return view('user.Export.index', $data, compact('results'));
+        return view('user.export.index', $data, compact('results'));
     }
 
     public function filter(Request $request)
@@ -159,7 +159,7 @@ class UserExportController extends Controller
             else {
                 $data['list'] = array();
             }
-            return view('user.Export.detail', $data);
+            return view('user.export.detail', $data);
         }
         else {
             Session::flash('alrt', 'error');    
