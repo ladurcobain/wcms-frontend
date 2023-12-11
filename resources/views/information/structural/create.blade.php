@@ -42,6 +42,22 @@
                                     </select>
                                 </div>
                             </div>
+                            <div id="cmb-user-role" style="display:block;">
+                                <div class="form-group row pt-2 pb-2">
+                                    <label class="col-sm-3 control-label text-sm-end pt-2">Tingkat <span
+                                            class="required">*</span></label>
+                                    <div class="col-sm-9">
+                                        <select data-plugin-selectTwo class="form-control populate placeholder"
+                                            data-plugin-options='{ "placeholder": "Pilih Tingkat ...", "allowClear": true }'
+                                            id="position" name="position">
+                                            <option></option>
+                                            <?php for($i=1; $i<=5; $i++) { ?>
+                                            <option value="<?php echo $i; ?>"><?php echo "Tingkat ". $i; ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="form-group row pt-3 pb-2">
                                 <label class="col-sm-3 control-label text-sm-end pt-2">Nama <span
                                         class="required">*</span></label>

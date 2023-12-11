@@ -27,6 +27,8 @@ class ConferenceNewsController extends Controller
         // unset session
 		Session::forget('q');  
         Session::forget('satker');
+        Session::forget('start');
+        Session::forget('end');
         
         return redirect()->route('news.search');
 	}
@@ -49,9 +51,24 @@ class ConferenceNewsController extends Controller
         }
 
         $q = Session::get('q');  
+        $start = Session::get('start');   
+        $end = Session::get('end');
+
+        $now = Carbon::now();
+        $firstDay = $now->firstOfMonth(); 
+        $startDay = Carbon::createFromFormat('Y-m-d H:i:s', $firstDay)
+                    ->format('d-m-Y'); 
+        $lastDay = $now->lastOfMonth();        
+        $endDay  = Carbon::createFromFormat('Y-m-d H:i:s', $lastDay)
+                    ->format('d-m-Y'); 
+
+        $start = (($start == "")?$startDay:$start);
+        $end   = (($end == "")?$endDay:$end);
         
         $data['q'] = $q;
         $data['satker'] = $satker;
+        $data['start'] = $start;
+        $data['end'] = $end;
         
         $data['title'] = $this->title;
         $data['subtitle'] = $this->subtitle;
@@ -61,11 +78,13 @@ class ConferenceNewsController extends Controller
         $offset = ($page * $perPage) - $perPage;
 
         $uri = Curl::endpoint();
-        $url = $uri .'/'.'conference/news/get-all';
+        $url = $uri .'/'.'conference/news/get-new';
         $param = array(
             'limit'     => $perPage,
             'offset'    => $offset,
             'satker_id' => $satker,
+            'start'     => Carbon::createFromFormat('d-m-Y', $start)->format('Y-m-d'),
+            'end'       => Carbon::createFromFormat('d-m-Y', $end)->format('Y-m-d'),
             'title'     => (($q == null)?"":$q),
         );
 
@@ -88,9 +107,13 @@ class ConferenceNewsController extends Controller
         if($request->has('_token')) {
             $q      = $request->q;
             $satker = $request->satker;
+            $start  = $request->start;
+            $end    = $request->end;
             
             Session::put('q', $q); 
             Session::put('satker', $satker); 
+            Session::put('start', $start); 
+            Session::put('end', $end); 
             
             return redirect()->route('news.search');
         } else {

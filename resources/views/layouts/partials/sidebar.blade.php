@@ -18,6 +18,22 @@
                         <span>Beranda</span>
                     </a>
                 </li>
+                <?php if(Session::get('user_type') == 1) { ?>
+                <li class="{{ Request::is('sitemap*') ? 'nav-active' : '' }}">
+                    <a class="nav-link" href="{{ route('sitemap.index') }}">
+                        <i class="bx bx-desktop" aria-hidden="true"></i>
+                        <span>Pratinjau</span>
+                    </a>
+                </li>
+                <?php } else { ?>
+                    <li>
+                    <a class="nav-link" target="_blank" href="{{ Session::get('satker_url') }}">
+                        <i class="bx bx-desktop" aria-hidden="true"></i>
+                        <span>Pratinjau</span>
+                    </a>
+                </li>
+                <?php } ?>
+
                 @php
                 $menu = Module::getModule();
                 $tempModule = Session::get('access');
@@ -70,6 +86,24 @@
                         <i class="bx bx-wrench" aria-hidden="true"></i>
                         <span>Konfigurasi</span>
                     </a>
+                </li>
+                <li class="{{ Request::is('setting*') ? 'nav-parent nav-active nav-expanded' : 'nav-parent' }}">
+                    <a class="nav-link" href="javascript:void(0);">
+                        <i class="bx bx-sitemap" aria-hidden="true"></i>
+                        <span>Data Induk</span>
+                    </a>
+                    <ul class="nav nav-children">
+                        <li class="{{ Request::is('setting/patterns*') ? 'nav-active' : '' }}">
+                            <a class="nav-link" href="{{ route('patterns.index') }}">
+                                <i class="bx bx-caret-right" aria-hidden="true"></i> Gambar Pola
+                            </a>
+                        </li>
+                        <li class="{{ Request::is('setting/covers*') ? 'nav-active' : '' }}">
+                            <a class="nav-link" href="{{ route('covers.index') }}">
+                                <i class="bx bx-caret-right" aria-hidden="true"></i> Gambar Sampul
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 <li class="{{ Request::is('chat*') ? 'nav-active' : '' }}">
                     <a class="nav-link" href="{{ route('chat.index') }}">

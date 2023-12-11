@@ -76,6 +76,9 @@ use App\Http\Controllers\ArchivePhotoController;
 use App\Http\Controllers\ArchiveRegulationController;
 use App\Http\Controllers\ArchiveMovieController;
 use App\Http\Controllers\ConfigureController;
+use App\Http\Controllers\SitemapController;
+use App\Http\Controllers\SettingPatternController;
+use App\Http\Controllers\SettingCoverController;
 
 
 /*
@@ -122,6 +125,7 @@ Route::group(['middleware' => ['checkLogin']], function () {
     Route::get('guidance', [GuidanceController::class, 'index'])->name('guidance.index');
     Route::get('integration', [IntegrationController::class, 'index'])->name('integration.index');
     Route::get('apk', [ApkController::class, 'index'])->name('apk.index');
+    Route::get('sitemap', [SitemapController::class, 'index'])->name('sitemap.index');
     
     // CONFIG PREFERENCE
     Route::resource('config/preference', ConfigPreferenceController::class);
@@ -752,4 +756,26 @@ Route::group(['middleware' => ['checkLogin']], function () {
     Route::post('configure-process', [ConfigureController::class, 'process'])->name('configure.process');
     Route::post('configure/update-patterns', [ConfigureController::class, 'updatepatterns'])->name('configure.updatepatterns');
     Route::post('configure/update-backgrounds', [ConfigureController::class, 'updatebackgrounds'])->name('configure.updatebackgrounds');
+
+    // setting patterns
+    Route::post('setting/patterns/update', [SettingPatternController::class, 'update'])->name('patterns.update');
+    Route::post('setting/patterns/search', [SettingPatternController::class, 'search'])->name('patterns.search');
+    Route::get('setting/patterns/destroy/{id}', [SettingPatternController::class, 'destroy']);
+    Route::post('setting/patterns/filter', [SettingPatternController::class, 'filter'])->name('patterns.filter');
+    Route::get('setting/patterns/search', [SettingPatternController::class, 'search'])->name('patterns.search');
+    Route::get('setting/patterns', [SettingPatternController::class, 'index'])->name('patterns.index');
+    Route::get('setting/patterns/{id}/edit', [SettingPatternController::class, 'edit'])->name('patterns.edit');
+    Route::get('setting/patterns/create', [SettingPatternController::class, 'create'])->name('patterns.create');
+    Route::post('setting/patterns/store', [SettingPatternController::class, 'store'])->name('patterns.store');
+
+    // setting covers
+    Route::post('setting/covers/update', [SettingCoverController::class, 'update'])->name('covers.update');
+    Route::post('setting/covers/search', [SettingCoverController::class, 'search'])->name('covers.search');
+    Route::get('setting/covers/destroy/{id}', [SettingCoverController::class, 'destroy']);
+    Route::post('setting/covers/filter', [SettingCoverController::class, 'filter'])->name('covers.filter');
+    Route::get('setting/covers/search', [SettingCoverController::class, 'search'])->name('covers.search');
+    Route::get('setting/covers', [SettingCoverController::class, 'index'])->name('covers.index');
+    Route::get('setting/covers/{id}/edit', [SettingCoverController::class, 'edit'])->name('covers.edit');
+    Route::get('setting/covers/create', [SettingCoverController::class, 'create'])->name('covers.create');
+    Route::post('setting/covers/store', [SettingCoverController::class, 'store'])->name('covers.store');
 });

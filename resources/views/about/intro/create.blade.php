@@ -28,6 +28,15 @@
                         method="post" novalidate>
                         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                         <div class="form-group row pb-2">
+                            <label class="col-sm-3 control-label text-sm-end pt-2"></label>
+                            <div class="col-sm-9">
+                                <div class="checkbox-custom checkbox-primary">
+                                    <input type="checkbox" id="chkTemp" onclick="templete_about_info();" />
+                                    <label>Template Konten</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row pb-2">
                             <label class="col-sm-3 control-label text-sm-end pt-2">Satuan Kerja <span class="required">*</span></label>
                             <div class="col-sm-9">
                                 <select data-plugin-selectTwo class="form-control populate placeholder"
@@ -66,3 +75,14 @@
 </div>
 
 @endsection
+
+<script>
+    function templete_about_info() {
+        var checkBox = document.getElementById("chkTemp");
+        if (checkBox.checked == true) {
+            $('#text_in').summernote('code', '<h2 style="margin-top: 0px; margin-bottom: 0.5rem; line-height: 1.2; font-size: 2rem; letter-spacing: normal; text-align: center; font-family: &quot;Playfair Display&quot;, serif; color: black;">Sambutan Kepala Kejaksaan&nbsp;</h2><p style="margin-top: 0px; margin-bottom: 0.5rem; line-height: 1.2; font-size: 2rem; letter-spacing: normal; text-align: center; font-family: &quot;Playfair Display&quot;, serif; color: black;"><br></p><p style="text-align: justify; margin-top: 0px; margin-bottom: 0.5rem; line-height: 1.2;"><font color="#000000" face="Playfair Display, serif"><span style="font-size: 14px;">Puji syukur kita panjatkan Kehadirat Tuhan Yang Maha Esa sehubungan dengan telah berfungsinya Website Kejaksaan Tinggi Lampung yang merupakan salah satu langkah upaya penerapan teknologi informasi menuju reformasi birokrasi kejaksaan untuk Indonesia lebih maju. </span></font></p><p style="text-align: justify; margin-top: 0px; margin-bottom: 0.5rem; line-height: 1.2;"><font color="#000000" face="Playfair Display, serif"><span style="font-size: 14px;"><br></span></font></p><p style="text-align: justify; margin-top: 0px; margin-bottom: 0.5rem; line-height: 1.2;"><font color="#000000" face="Playfair Display, serif"><span style="font-size: 14px;">KEJAKSAAN UNTUK INDONESIA</span></font><br></p>');
+        } else {
+            $('#text_in').summernote('code', '');
+        }
+    }
+</script>

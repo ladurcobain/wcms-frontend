@@ -17,74 +17,49 @@
                                     <h2 class="card-title">Ubah {{ $subtitle != '' ? $subtitle : $title }}</h2>
                                 </div>
                                 <div class="pull-right">
-                                    <a href="{{ route('structural.index') }}" class="btn btn-sm btn-default"
-                                        structural="button">
+                                    <a href="{{ route('covers.index') }}" class="btn btn-sm btn-default" cover="button">
                                         <i class="fas fa-chevron-left"></i> Kembali</a>
                                 </div>
                             </div>
                         </div>
                     </header>
                     <div class="card-body">
-                        <form id="form" class="form-horizontal form-bordered" action="{{ route('structural.update') }}"
+                        <form id="form" class="form-horizontal form-bordered" action="{{ route('covers.update') }}"
                             method="post" novalidate enctype="multipart/form-data">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-                            <input type="hidden" name="structural_id" value="{{ $info->structural_id }}" />
-                            <input type="hidden" name="structural_image" value="{{ $info->structural_image }}" />
-                            <input type="hidden" name="structural_size" value="{{ $info->structural_size }}" />
+                            <input type="hidden" name="cover_id" value="{{ $info->cover_id }}" />
+                            <input type="hidden" name="cover_image" value="{{ $info->cover_image }}" />
+                            <input type="hidden" name="cover_size" value="{{ $info->cover_size }}" />
                             <div class="form-group row pb-2">
                                 <label class="col-sm-3 control-label text-sm-end pt-2"></label>
                                 <div class="col-sm-9">
                                     <div class="checkbox-custom checkbox-primary">
                                         <input type="checkbox" id="checkboxExample2" name="status" value="1"
-                                            {{ $info->structural_status == 1 ? 'checked' : '' }} />
+                                            {{ $info->cover_status == 1 ? 'checked' : '' }} />
                                         <label for="checkboxExample2"><?php echo Status::tipeStatus(1); ?></label>
                                     </div>
                                 </div>
                             </div>
-                            <div id="cmb-user-role" style="display:block;">
-                                <div class="form-group row pt-2 pb-2">
-                                    <label class="col-sm-3 control-label text-sm-end pt-2">Tingkat <span
-                                            class="required">*</span></label>
-                                    <div class="col-sm-9">
-                                        <select data-plugin-selectTwo class="form-control populate placeholder"
-                                            data-plugin-options='{ "placeholder": "Pilih Tingkat ...", "allowClear": true }'
-                                            id="position" name="position">
-                                            <option></option>
-                                            <?php for($i=1; $i<=5; $i++) { ?>
-                                            <option value="<?php echo $i; ?>" <?php echo (($i == $info->structural_position)?'selected="selected"':''); ?>><?php echo "Tingkat ". $i; ?></option>
-                                            <?php } ?>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group row pt-3 pb-2">
+                            <div class="form-group row pb-2">
                                 <label class="col-sm-3 control-label text-sm-end pt-2">Nama <span
                                         class="required">*</span></label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control" id="name" name="name"
-                                        placeholder="Nama" value="{{ $info->structural_name }}" autocomplete="off"
-                                        required />
+                                        placeholder="Nama" value="{{ $info->cover_name }}" autocomplete="off" required />
                                 </div>
                             </div>
-                            <div class="form-group row pt-3 pb-2">
-                                <label class="col-sm-3 control-label text-sm-end pt-2">NIP</label>
+                            <div class="form-group row pb-2">
+                                <label class="col-sm-3 control-label text-sm-end pt-2">Keterangan</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="nip" name="nip"
-                                        placeholder="NIP" value="{{ $info->structural_nip }}" autocomplete="off" />
-                                </div>
-                            </div>
-                            <div class="form-group row pt-3 pb-2">
-                                <label class="col-sm-3 control-label text-sm-end pt-2">Jabatan</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="title" name="title"
-                                        placeholder="Jabatan" value="{{ $info->structural_title }}" autocomplete="off" />
+                                    <textarea class="form-control" id="desc" name="desc" rows="2" style="resize: none;"
+                                        placeholder="Keterangan ...">{{ strip_tags($info->cover_description) }}</textarea>
                                 </div>
                             </div>
                             <div class="form-group row pb-3">
                                 <label class="col-sm-3 control-label text-sm-end pt-2">Gambar</label>
                                 <div class="col-sm-2">
-                                    <?php if($info->structural_image != "") { ?>
-                                    <img src="{{ $info->structural_path }}" alt="Webphada" class="img-thumbnail" />
+                                    <?php if($info->cover_image != "") { ?>
+                                    <img src="{{ $info->cover_path }}" alt="Webphada" class="img-thumbnail" />
                                     <?php } else { ?>
                                     <img src="{{ asset('assets/img/logo-webphada.png') }}" alt="Webphada"
                                         class=" user-image img-thumbnail" />
@@ -94,13 +69,7 @@
                                     <input type="file" accept="image/jpg, image/png, image/jpeg" class="form-control"
                                         id="userfile" name="userfile" placeholder="Gambar" autocomplete="off" />
                                     <span class="help-block">Ukuran maksimum 10MB (JPG | PNG | JPEG). Dimensi gambar
-                                        400x400</span>
-                                </div>
-                            </div>
-                            <div class="form-group row pb-2">
-                                <label class="col-sm-3 control-label text-sm-end pt-2">Informasi Tambahan</label>
-                                <div class="col-sm-9">
-                                    <textarea class="summernote form-control" id="information" name="information">{{ strip_tags($info->structural_information) }}</textarea>
+                                        1920x300</span>
                                 </div>
                             </div>
                             <div class="row justify-content-end">

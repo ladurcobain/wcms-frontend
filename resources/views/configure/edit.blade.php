@@ -126,24 +126,28 @@
                                                 <label class="col-sm-3 control-label text-sm-end pt-2">Url Map Embed</label>
                                                 <div class="col-sm-9">
                                                     <textarea class="form-control" id="embed_map" name="embed_map" rows="1" style="resize: none;" placeholder="https://maps.google.com/maps?q=kejaksaan agung republik indonesia&t=&z=10&ie=UTF8&iwloc=&output=embed">{{ $info->satker_map }}</textarea>
+                                                    <span class="help-block">Cara menambahkan <a href="javascript:void(0);" OnClick="modal_google();">Url Google Maps</a></span>
                                                 </div>
                                             </div>
                                             <div class="form-group row pb-2">
                                                 <label class="col-sm-3 control-label text-sm-end pt-2">Url Profil Facebook</label>
                                                 <div class="col-sm-9">
                                                     <textarea class="form-control" id="url_facebook" name="url_facebook" rows="1" style="resize: none;" placeholder="https://www.facebook.com/people/Kejaksaan-RI/100064391933878/">{{ $info->satker_facebook }}</textarea>
+                                                    <span class="help-block">Cara menambahkan <a href="javascript:void(0);" OnClick="modal_facebook();">Url Profil Facebook</a></span>
                                                 </div>
                                             </div>
                                             <div class="form-group row pb-2">
                                                 <label class="col-sm-3 control-label text-sm-end pt-2">Url Profil Twitter</label>
                                                 <div class="col-sm-9">
                                                     <textarea class="form-control" id="url_twitter" name="url_twitter" rows="1" style="resize: none;" placeholder="https://twitter.com/KejaksaanRI">{{ $info->satker_twitter }}</textarea>
+                                                    <span class="help-block">Cara menambahkan <a href="javascript:void(0);" OnClick="modal_twitter();">Url Profil Twitter</a></span>
                                                 </div>
                                             </div>
                                             <div class="form-group row pb-2">
                                                 <label class="col-sm-3 control-label text-sm-end pt-2">Url Profil Instagram</label>
                                                 <div class="col-sm-9">
                                                     <textarea class="form-control" id="url_instagram" name="url_instagram" rows="1" style="resize: none;" placeholder="https://www.instagram.com/kejaksaan.ri/">{{ $info->satker_instagram }}</textarea>
+                                                    <span class="help-block">Cara menambahkan <a href="javascript:void(0);" OnClick="modal_instagram();">Url Profil Instagram</a></span>
                                                 </div>
                                             </div>
                                             <div class="form-group row pb-2">
@@ -152,6 +156,7 @@
                                                     <textarea class="form-control" id="description" name="description" rows="3"
                                                         style="resize: none;"
                                                         placeholder="Konten SEO ...">{{ strip_tags($info->satker_description) }}</textarea>
+                                                    <span class="help-block">Direkomendasikan untuk menuliskan teks dalam jumlah antara 150 hingga 160 karakter</span>
                                                 </div>
                                             </div>
                                             <div class="row justify-content-end pb-3">
@@ -237,6 +242,7 @@
                                                         <input type="email" class="form-control" id="videolink" name="videolink"
                                                             value="{{ $info->satker_videolink }}" placeholder="Url Link Video"
                                                             autocomplete="off" />
+                                                        <span class="help-block">Cara menambahkan <a href="javascript:void(0);" OnClick="modal_youtube();">Url Youtube</a></span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -690,5 +696,234 @@
         </div>
     </div>
 </div>
+
+<div id="modalFacebook" class="modal animated bounceIn" tabindex="-1" role="dialog" aria-labelledby="modalFacebook" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body" id="modal-content">
+                <div class="card card-modern">
+                    <div class="card-body">
+                        <div class="ecommerce-timeline mb-3">
+                            <div class="tm-title">
+                                <h5 class="m-0 pt-2 pb-2 text-dark font-weight-semibold text-uppercase">Cara menambahkan Url Profil Facebook</h5>
+                            </div>
+                            <div class="ecommerce-timeline-items-wrapper">
+                                <div class="ecommerce-timeline-item">
+                                    <small>Buka website <a target="_blank" href="https://www.facebook.com/" class="text-color-primary">Facebook</a></small>
+                                    <p>Kemudian salin <i>url facebook</i> profil tersebut</p>
+                                </div>
+                                <div class="ecommerce-timeline-item">
+                                    <p>Mencari profil berdasarkan nama</p>
+                                    <div>
+                                        <ol>
+                                            <li>Klik <i class="bx bx-search"></i> Cari di Facebook di kiri atas</li>
+                                            <li>Masukkan nama di bilah pencarian, lalu ketuk atau di kanan bawah</li>
+                                            <li>Ketuk <i class="bx bx-user"></i> ORANG di bagian atas</li>
+                                            <li>Anda bisa memilih untuk memfilter berdasarkan kota, pendidikan, pekerjaan dan lainnnya</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                                <div class="ecommerce-timeline-item">
+                                    <div class="thumbnail-gallery">
+                                        <img class="img-fluid" width="100%" src="{{ asset('assets/img/guide_facebook.png') }}" alt="Pencarian Facebook" />
+                                    </div>    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function modal_facebook() {
+        $('#modalFacebook').modal('show');
+    }
+</script>
+
+<div id="modalTwitter" class="modal animated bounceIn" tabindex="-1" role="dialog" aria-labelledby="modalTwitter" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body" id="modal-content">
+                <div class="card card-modern">
+                    <div class="card-body">
+                        <div class="ecommerce-timeline mb-3">
+                            <div class="tm-title">
+                                <h5 class="m-0 pt-2 pb-2 text-dark font-weight-semibold text-uppercase">Cara menambahkan Url Profil Twitter</h5>
+                            </div>
+                            <div class="ecommerce-timeline-items-wrapper">
+                                <div class="ecommerce-timeline-item">
+                                    <small>Buka website <a target="_blank" href="https://twitter.com/" class="text-color-primary">Twitter</a></small>
+                                    <p>Kemudian salin <i>url twitter</i> profil tersebut</p>
+                                </div>
+                                <div class="ecommerce-timeline-item">
+                                    <p>Mencari profil berdasarkan nama</p>
+                                    <div>
+                                        <ol>
+                                            <li>Ketik nama atau nama pengguna orang yang ingin dicari di kotak pencarian pada bagian atas beranda</li>
+                                            <li>Atau sentuh tab Jelajah <i class="bx bx-search"></i> untuk mengakses kotak pencarian</li>
+                                            <li>Anda akan melihat 6 opsi yang berbeda untuk memperinci hasil pencarian</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                                <div class="ecommerce-timeline-item">
+                                    <div class="thumbnail-gallery">
+                                        <img class="img-fluid" width="100%" src="{{ asset('assets/img/guide_twitter.png') }}" alt="Pencarian twitter" />
+                                    </div>    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function modal_twitter() {
+        $('#modalTwitter').modal('show');
+    }
+</script>
+
+<div id="modalInstagram" class="modal animated bounceIn" tabindex="-1" role="dialog" aria-labelledby="modalInstagram" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body" id="modal-content">
+                <div class="card card-modern">
+                    <div class="card-header">
+                        <h2 class="card-title"></h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="ecommerce-timeline mb-3">
+                            <div class="tm-title">
+                                <h5 class="m-0 pt-2 pb-2 text-dark font-weight-semibold text-uppercase">Cara menambahkan Url Profil Instagram</h5>
+                            </div>
+                            <div class="ecommerce-timeline-items-wrapper">
+                                <div class="ecommerce-timeline-item">
+                                    <small>Buka website <a target="_blank" href="https://www.instagram.com/" class="text-color-primary">Instagram</a></small>
+                                    <p>Kemudian salin <i>url instagram</i> profil tersebut</p>
+                                </div>
+                                <div class="ecommerce-timeline-item">
+                                    <p>Mencari profil berdasarkan nama</p>
+                                    <div>
+                                        <ol>
+                                            <li>Ketuk <i class="bx bx-search"></i> ikon kaca pembesar</li>
+                                            <li>Ketik nama pengguna orang di Bilah Pencarian</li>
+                                            <li>Lihatlah hasilnya dan cobalah untuk cari seseorang yang tepat</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                                <div class="ecommerce-timeline-item">
+                                    <div class="thumbnail-gallery">
+                                        <img class="img-fluid" width="100%" src="{{ asset('assets/img/guide_instagram.png') }}" alt="Pencarian instagram" />
+                                    </div>    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function modal_instagram() {
+        $('#modalInstagram').modal('show');
+    }
+</script>
+
+<div id="modalGoogle" class="modal animated bounceIn" tabindex="-1" role="dialog" aria-labelledby="modalGoogle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body" id="modal-content">
+                <div class="card card-modern">
+                    <div class="card-body">
+                        <div class="ecommerce-timeline mb-3">
+                            <div class="tm-title">
+                                <h5 class="m-0 pt-2 pb-2 text-dark font-weight-semibold text-uppercase">Cara menambahkan Url Google Maps</h5>
+                            </div>    
+                            <div class="ecommerce-timeline-items-wrapper">
+                                <div class="ecommerce-timeline-item">
+                                    <small>Buka website <a target="_blank" href="https://www.google.com/maps" class="text-color-primary">Google Maps</a></small>
+                                    <p>Kemudian salin <i>url google maps</i> tersebut</p>
+                                </div>
+                                <div class="ecommerce-timeline-item">
+                                    <p>Mencari profil berdasarkan nama</p>
+                                    <div>
+                                        <ol>
+                                            <li>Klik <i class="bx bx-search"></i> Cari di google di kiri atas google.</li>
+                                            <li>Pada kotak pencarian, ketikkan nama lokasi yang dinginkan dan kemudian tekan Enter</li>
+                                            <li>Kemudian klik <i class="bx bx-share-alt"></i> Bagikan dan pilih Embed map</li>
+                                            <li>Klik pada kolom Medium kemudian salin url tersebut</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                                <div class="ecommerce-timeline-item">
+                                    <div class="thumbnail-gallery">
+                                        <img class="img-fluid" width="100%" src="{{ asset('assets/img/guide_map.png') }}" alt="Pencarian google" />
+                                    </div>    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function modal_google() {
+        $('#modalGoogle').modal('show');
+    }
+</script>
+
+<div id="modalYoutube" class="modal animated bounceIn" tabindex="-1" role="dialog" aria-labelledby="modalYoutube" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body" id="modal-content">
+                <div class="card card-modern">
+                    <div class="card-header">
+                        <h2 class="card-title"></h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="ecommerce-timeline mb-3">
+                            <div class="tm-title">
+                                <h5 class="m-0 pt-2 pb-2 text-dark font-weight-semibold text-uppercase">Cara menambahkan Url Youtube</h5>
+                            </div>
+                            <div class="ecommerce-timeline-items-wrapper">
+                                <div class="ecommerce-timeline-item">
+                                    <small>Buka website <a target="_blank" href="https://www.youtube.com/" class="text-color-primary">Youtube</a></small>
+                                    <p>Kemudian salin <i>url youtube</i> video tersebut</p>
+                                </div>
+                                <div class="ecommerce-timeline-item">
+                                    <p>Mencari video yang ingin bagikan</p>
+                                    <div>
+                                        <ol>
+                                            <li>Buka video yang ingin Anda bagikan</li>
+                                            <li>Di bawah pemutar video, ketuk <i class="bx bx-share"></i> Bagikan</li>
+                                            <li>Akan muncul panel yang menampilkan beberapa opsi berbagi</li>
+                                            <li>Pilih Salin tautan, untuk menyalin dan menempelkan URL video tersebut</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                                <div class="ecommerce-timeline-item">
+                                    <div class="thumbnail-gallery">
+                                        <img class="img-fluid" width="100%" src="{{ asset('assets/img/guide_youtube.png') }}" alt="Pencarian youtube" />
+                                    </div>    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function modal_youtube() {
+        $('#modalYoutube').modal('show');
+    }
+</script>
 
 @endsection

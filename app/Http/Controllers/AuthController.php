@@ -50,6 +50,7 @@ class AuthController extends Controller
             Session::put('satker_id', $users->satker_id);
             Session::put('satker_name', $users->satker_name);
             Session::put('satker_slug', $users->satker_slug);
+            Session::put('satker_url', $users->satker_url);
             Session::put('role_id', $users->role_id);
             Session::put('role_name', $users->role_name);
 

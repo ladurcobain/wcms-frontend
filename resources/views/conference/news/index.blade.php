@@ -36,7 +36,20 @@
                         <form class="form-horizontal form-bordered" action="{{ route('news.filter') }}" method="post">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                             <div class="form-group row pb-3">
-                                <div class="col-lg-4"></div>
+                                <div class="col-lg-4 mb-2">
+                                    <div class="input-daterange input-group mb-2" data-plugin-datepicker>
+                                        <span class="input-group-text">
+                                            <i class="fas fa-calendar-alt"></i>
+                                        </span>
+                                        <input type="text" class="form-control" name="start" value="{{ $start }}"
+                                            autocomplete="off" />
+                                        <span class="input-group-text border-start-0 border-end-0 rounded-0">
+                                            s/d
+                                        </span>
+                                        <input type="text" class="form-control" name="end" value="{{ $end }}"
+                                            autocomplete="off" />
+                                    </div>
+                                </div>
                                 <div class="col-lg-4 mb-2">
                                     <select data-plugin-selectTwo class="form-control populate placeholder"
                                         data-plugin-options='{ "placeholder": "Pilih Satuan Kerja ...", "allowClear": false }'
@@ -65,6 +78,7 @@
                                 <thead>
                                     <tr>
                                         <th width="25%">Satuan Kerja</th>
+                                        <th width="12%">Tanggal</th>
                                         <th>Judul Berita</th>
                                         <th class="center" width="10%">Status</th>
                                         <th class="center" width="20%">Aksi</th>
@@ -75,6 +89,7 @@
                                     <?php foreach ($results as $row) { ?>
                                     <tr>
                                         <td>{{ $row->news_satker }}</td>
+                                        <td class="center">{{ $row->news_date }}</td>
                                         <td>{{ $row->news_title }}</td>
                                         <td class="center"><span
                                                 class="badge badge-<?php echo $row->news_status == 1 ? 'success' : 'danger'; ?>"><?php echo $row->news_status == 1 ? Status::tipeNews(1) : Status::tipeNews(2); ?></span></td>
@@ -92,7 +107,7 @@
                                     <?php } ?>
                                     <?php } else { ?>
                                     <tr>
-                                        <td class="center" colspan="4">Data tidak ditemukan</td>
+                                        <td class="center" colspan="5">Data tidak ditemukan</td>
                                     </tr>
                                     <?php } ?>
                                 </tbody>
@@ -100,7 +115,7 @@
                                 <tfoot>
                                     <tr>
                                         <td>Total <b>{{ $results->total() }}</b> Data</td>
-                                        <td colspan="3"><span
+                                        <td colspan="4"><span
                                                 style="margin-top: 15px;float:right;">{{ $results->onEachSide(1)->links() }}</span>
                                         </td>
                                     </tr>
