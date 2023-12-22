@@ -47,12 +47,25 @@ class FilemanagerPdfController extends Controller
         ));
 
         $response = curl_exec($curl);
-        $resp = json_decode($response); 
+        $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        curl_close($curl);
+
+        $rsp_data = array();
+        $rsp_total = 0;
+        if($httpcode == 200) {
+            $resp = json_decode($response); 
+
+            $rsp_data  = $resp->data;
+            $rsp_total = $resp->total;
+            $newCollection = collect($rsp_data);
+        }
+        else {
+            $newCollection = collect($rsp_data);
+        }
         
-        $newCollection = collect($resp->data);
         $results =  new LengthAwarePaginator(
             $newCollection,
-            $resp->total,
+            $rsp_total,
             $perPage,
             $page,
             ['path' => url($this->path)]
