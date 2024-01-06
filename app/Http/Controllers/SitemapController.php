@@ -12,19 +12,17 @@ class SitemapController extends Controller
 
     public function index()
     {
-        if(Session::get('login') == TRUE) {
-            $data['title'] = $this->title;
-            $data['subtitle'] = $this->subtitle;
+        $data['title'] = $this->title;
+        $data['subtitle'] = $this->subtitle;
 
-            $uri = Curl::endpoint();
-            $url = $uri .'/'.'active/get-satker';
-            $res = Curl::requestGet($url);
-            
-            $data['status']  = $res->status;
-            $data['message'] = $res->message;
-            $data['list']    = $res->data;
-            
-            return view('sitemap', $data);
-        }
+        $uri = Curl::endpoint();
+        $url = $uri .'/'.'active/get-satker';
+        $res = Curl::requestGet($url);
+        
+        $data['status']  = $res->status;
+        $data['message'] = $res->message;
+        $data['list']    = $res->data;
+        
+        return view('sitemap', $data);
     }
 }

@@ -100,6 +100,7 @@ Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('error', [ErrorController::class, 'index'])->name('error.index');
 Route::get('/refresh-captcha',  [AuthController::class, 'refreshCaptcha'])->name('refresh-captcha');
 Route::get('/schedule-backup',  [AuthController::class, 'scheduleBackup'])->name('schedule-backup');
+Route::get('sitemap', [SitemapController::class, 'index'])->name('sitemap.index');
 
 Route::get('ajax/notif-alert/{id}', [AjaxController::class, 'notif_alert']);
 Route::get('ajax/notif-message/{id}', [AjaxController::class, 'notif_message']);
@@ -125,8 +126,7 @@ Route::group(['middleware' => ['checkLogin']], function () {
     Route::get('guidance', [GuidanceController::class, 'index'])->name('guidance.index');
     Route::get('integration', [IntegrationController::class, 'index'])->name('integration.index');
     Route::get('apk', [ApkController::class, 'index'])->name('apk.index');
-    Route::get('sitemap', [SitemapController::class, 'index'])->name('sitemap.index');
-    
+        
     // CONFIG PREFERENCE
     Route::resource('config/preference', ConfigPreferenceController::class);
     Route::post('config/preference/update', [ConfigPreferenceController::class, 'update'])->name('preference.update');
