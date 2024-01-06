@@ -20,7 +20,7 @@
                 </li>
                 <?php if(Session::get('user_type') == 1) { ?>
                 <li class="{{ Request::is('sitemap*') ? 'nav-active' : '' }}">
-                    <a class="nav-link" href="{{ route('sitemap.index') }}">
+                    <a target="_blank" class="nav-link" href="{{ route('sitemap.index') }}">
                         <i class="bx bx-desktop" aria-hidden="true"></i>
                         <span>Pratinjau</span>
                     </a>

@@ -26,29 +26,21 @@
 		<link rel="stylesheet" href="{{ asset('assets/vendor/magnific-popup/magnific-popup.css') }}" />
 		<link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.css') }}" />
 
-		<!-- Specific Page Vendor CSS -->
-        <link rel="stylesheet" href="{{ asset('assets/vendor/jquery-ui/jquery-ui.css') }}" />
-        <link rel="stylesheet" href="{{ asset('assets/vendor/jquery-ui/jquery-ui.theme.css') }}" />
-        <link rel="stylesheet" href="{{ asset('assets/vendor/select2/css/select2.css') }}" />
-        <link rel="stylesheet" href="{{ asset('assets/vendor/select2-bootstrap-theme/select2-bootstrap.min.css') }}" />
-        <link rel="stylesheet" href="{{ asset('assets/vendor/datatables/media/css/dataTables.bootstrap5.css') }}" />
-        <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap-markdown/css/bootstrap-markdown.min.css') }}" />
- 
-        <!-- Theme CSS -->
-        <link rel="stylesheet" href="{{ asset('assets/css/theme.css') }}" />
+		<!-- Theme CSS -->
+		<link rel="stylesheet" href="{{ asset('assets/css/theme.css') }}" />
 
-        <!-- Skin CSS -->
-        <link rel="stylesheet" href="{{ asset('assets/css/skins/default.css') }}" />
+		<!-- Skin CSS -->
+		<link rel="stylesheet" href="{{ asset('assets/css/skins/default.css') }}" />
 
-        <!-- Theme Custom CSS -->
-        <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
-        
-        <!-- Head Libs -->
+		<!-- Theme Custom CSS -->
+		<link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
+
+		<!-- Head Libs -->
 		<script src="{{ asset('assets/vendor/modernizr/modernizr.js') }}"></script>
+
 	</head>
 	<body>
-		<!-- start: page -->
-		<section class="body-sign body-locked">
+        <section class="body-sign body-locked">
 
 <div class="col-lg-12 col-md-12">
     <div class="row">
@@ -101,49 +93,26 @@
 <!-- end: page -->
 
     </section>
-		<!-- end: page -->
-        
-        <!-- Vendor -->
-        <script src="{{ asset('assets/vendor/jquery/jquery.js') }}"></script>
-        <script src="{{ asset('assets/vendor/jquery-browser-mobile/jquery.browser.mobile.js') }}"></script>
-        <script src="{{ asset('assets/vendor/jquery-cookie/jquery.cookie.js') }}"></script>
-        <script src="{{ asset('assets/vendor/popper/umd/popper.min.js') }}"></script>
-        <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-        <script src="{{ asset('assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
-        <script src="{{ asset('assets/vendor/common/common.js') }}"></script>
-        <script src="{{ asset('assets/vendor/nanoscroller/nanoscroller.js') }}"></script>
-        <script src="{{ asset('assets/vendor/magnific-popup/jquery.magnific-popup.js') }}"></script>
-        <script src="{{ asset('assets/vendor/jquery-placeholder/jquery.placeholder.js') }}"></script>
-        
-        <!-- Specific Page Vendor -->
-        <script src="{{ asset('assets/vendor/select2/js/select2.js') }}"></script>
-        <script src="{{ asset('assets/vendor/datatables/media/js/jquery.dataTables.min.js') }}"></script>		
-        <script src="{{ asset('assets/vendor/datatables/media/js/dataTables.bootstrap5.min.js') }}"></script>
-        
-		<!-- Theme Base, Components and Settings -->
-        <script src="{{ asset('assets/js/theme.js') }}"></script>
+    <!-- Vendor -->
+    <script src="{{ asset('assets/vendor/jquery/jquery.js') }}"></script>
+    <script src="{{ asset('assets/vendor/jquery-browser-mobile/jquery.browser.mobile.js') }}"></script>
+    <script src="{{ asset('assets/vendor/jquery-cookie/jquery.cookie.js') }}"></script>
+    <script src="{{ asset('assets/vendor/popper/umd/popper.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
+    <script src="{{ asset('assets/vendor/common/common.js') }}"></script>
+    <script src="{{ asset('assets/vendor/nanoscroller/nanoscroller.js') }}"></script>
+    <script src="{{ asset('assets/vendor/magnific-popup/jquery.magnific-popup.js') }}"></script>
+    <script src="{{ asset('assets/vendor/jquery-placeholder/jquery.placeholder.js') }}"></script>
 
-        <!-- Theme Initialization Files -->
-        <script src="{{ asset('assets/js/theme.init.js') }}"></script>
+    <!-- Specific Page Vendor -->
 
-        <script>
-            // DATATABLE
-            $('#dtTable').DataTable({
-                responsive: true,
-                bInfo: false,
-                "pageLength": 100,
-                "oLanguage": {
-                    //"ssearchPlaceholder":"Pencarian",
-                    "sZeroRecords": "Data tidak ditemukan",
-                    "sLengthMenu": "Tampilkan &nbsp; _MENU_ data",
-                    "oPaginate": {
-                        "sFirst": "<<",
-                        "sPrevious": "<",
-                        "sNext": ">",
-                        "sLast": ">>"
-                    }
-                },
-            });
-        </script>
-	</body>
+    <!-- Theme Base, Components and Settings -->
+    <script src="{{ asset('assets/js/theme.js')}}"></script>
+
+    <!-- Theme Custom -->
+    
+    <!-- Theme Initialization Files -->
+    <script src="{{ asset('assets/js/theme.init.js')}}"></script>
+</body>
 </html>
