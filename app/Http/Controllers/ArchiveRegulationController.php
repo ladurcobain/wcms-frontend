@@ -23,59 +23,428 @@ class ArchiveRegulationController extends Controller
      */
 
     public function index() {
+        // unset session
+		Session::forget('q');  
+        Session::forget('satker');
+        
         return redirect()->route('regulation.search');
 	}
 
     public function search()
-     {
-        $page = request()->has('page') ? request('page') : 1;
-        $perPage = request()->has('per_page') ? request('per_page') : 20;
-        $offset = ($page * $perPage) - $perPage;
-
-        $curl = curl_init();
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://jdih.kejaksaan.go.id/api/apiwcms.php?page='.$page,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'GET',
-            CURLOPT_HTTPHEADER => array(
-                'x-access-token: 38bf8bd945abb3df355a6d87c8a09102fa8076c076e5f917bac771407ff726b0',
-                'Cookie: PHPSESSID=90835468c22ce97ccdb53e24b80ebc47; _csrf=46bbea38a53a69f494ea6191b3b17a7cf2c9df7134c51556b7c2149a4913336ca%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22hiHyS0fffFHezVu4-w0Dv8GDPMGCykoW%22%3B%7D'
-            ),
-        ));
-
-        $response = curl_exec($curl);
-        $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-        curl_close($curl);
-
-        $rsp_data = array();
-        $rsp_total = 0;
-        if($httpcode == 200) {
-            $resp = json_decode($response); 
-
-            $rsp_data  = $resp->data;
-            $rsp_total = $resp->total;
-            $newCollection = collect($rsp_data);
+    {
+        if(Session::get('user_type') == 2) {
+            $satker = Session::get('satker_id'); 
+            $data['satkers'] = Module::getLevelingSatker($satker);
         }
         else {
-            $newCollection = collect($rsp_data);
+            $satker = Session::get('satker');  
+            $data['satkers'] = Module::getActiveSatker();
         }
+
+        $q = Session::get('q');  
         
+        $data['q'] = $q;
+        $data['satker'] = $satker;
+        
+        $data['title'] = $this->title;
+        $data['subtitle'] = $this->subtitle;
+       
+        $page = request()->has('page') ? request('page') : 1;
+        $perPage = request()->has('per_page') ? request('per_page') : 10;
+        $offset = ($page * $perPage) - $perPage;
+
+        $uri = Curl::endpoint();
+        $url = $uri .'/'.'archive/regulation/get-all';
+        $param = array(
+            'limit'     => $perPage,
+            'offset'    => $offset,
+            'satker_id' => $satker,
+            'keyword'   => (($q == null)?"":$q),
+        );
+
+        $res = Curl::requestPost($url, $param);
+
+        $newCollection = collect($res->data->lists);
         $results =  new LengthAwarePaginator(
             $newCollection,
-            $rsp_total,
+            $res->data->total,
             $perPage,
             $page,
             ['path' => url($this->path)]
         );
         
+        return view('archive.regulation.index', $data, compact('results'));
+    }
+
+    public function filter(Request $request)
+    {
+        if($request->has('_token')) {
+            $q      = $request->q;
+            $satker = $request->satker;
+            
+            Session::put('q', $q); 
+            Session::put('satker', $satker); 
+            
+            return redirect()->route('regulation.search');
+        } else {
+            return redirect()->route('regulation.index');
+        }
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
         $data['title'] = $this->title;
         $data['subtitle'] = $this->subtitle;
+
+        if(Session::get('user_type') == 2) {
+            $data['satker']  = Session::get('satker_id'); 
+            $data['satkers'] = Module::getSessionSatker(Session::get('satker_id'));
+        }
+        else {
+            $data['satker']  = "";
+            $data['satkers'] = Module::getActiveSatker();
+        }
+
+        return view('archive.regulation.create', $data);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $uri = Curl::endpoint();
+        $url = $uri .'/'.'archive/regulation/insert-data';
+
+        if($request->hasFile('userfile')) {
+            $file = request('userfile');
+            $file_path = $file->getPathName();
+            $file_mime = $file->getClientMimeType();
+            $file_uploaded_name = $file->getClientOriginalName('');
+
+            $client = new Client();
+            $response = $client->request('POST', $url, [
+                'connect_timeout' => 10,
+                'multipart' => [
+                    [
+                        'name'      => 'userfile',
+                        'filename'  => $file_uploaded_name,
+                        'mime-type' => $file_mime,
+                        'contents'  => fopen($file_path, 'r'),
+                    ],
+                    [
+                        'name'      => 'satker_id',
+                        'contents'  => $request->satker,
+                    ],
+                    [
+                        'name'      => 'title',
+                        'contents'  => $request->title,
+                    ],
+                    [
+                        'name'      => 'description',
+                        'contents'  => $request->desc,
+                    ],
+                    [
+                        'name'      => 'last_user',
+                        'contents'  => Session::get('user_id'),
+                    ]
+                ]
+            ]);
+            
+            if($response->getStatusCode() == 200) {
+                $body = json_decode($response->getBody());
+                if($body != "") {
+                    $res = $body;
+                }
+                else {
+                    $res = json_decode('{"status": false, "message": "Kesalahan koneksi internal", "data": "[]"}');
+                }
+            }
+            else {
+                $res = json_decode('{"status": false, "message": "Kesalahan respon server", "data": "[]"}');
+            }
+        }
+        else {
+            $param = array(
+                'satker_id'   => $request->satker,
+                'title'       => $request->title,
+                'description' => $request->desc,
+                'last_user'   => Session::get('user_id')
+            );
+    
+            $res = Curl::requestPost($url, $param);
+        }
+
+        Session::flash('alrt', (($res->status == false)?'error':'success'));    
+        Session::flash('msgs', $res->message);  
+
+
+
+        // $ext  = "";
+        // $size = 0;
+        // if($request->hasFile('userfile')) {
+        //     $ext  = $request->file('userfile')->extension();
+        //     $size = $request->file('userfile')->getSize();
+
+        //     if($ext == "pdf") {
+        //         if($size <= 10000000) {
+        //             $path = $request->file('userfile')->store('public/assets/uploads/regulation');
+        //             $fileName = str_replace('public/assets/uploads/regulation/', '', $path); 
+                    
+        //             $uri = Curl::endpoint();
+        //             $url = $uri .'/'.'archive/regulation/insert-data';
+                    
+        //             $param = array(
+        //                 'size'          => $size,
+        //                 'file'          => $fileName,
+        //                 'satker_id'     => $request->satker,
+        //                 'title'         => $request->title,
+        //                 'description'   => $request->desc,
+        //                 'last_user'     => Session::get('user_id')
+        //             );
+        //             $res = Curl::requestPost($url, $param);
+
+        //             $alrt = (($res->status == false)?'error':'success');    
+        //             $msgs = $res->message;
+        //         }
+        //         else {
+        //             $alrt = 'error';    
+        //             $msgs ='Ukuran berkas maks: 10 MB';
+        //         }
+        //     }
+        //     else {
+        //         $alrt = 'error';        
+        //         $msgs = 'Jenis berkas unggahan: pdf';
+        //     }
+        // }
+        // else {
+        //     $alrt = 'error';        
+        //     $msgs = 'Berkas unggahan harap di lengkapi';
+        // }
+
+        // Session::flash('alrt', $alrt);    
+        // Session::flash('msgs', $msgs);
+
+        return redirect()->route('regulation.search');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        return redirect()->route('regulation.index');
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $data['title'] = $this->title;
+        $data['subtitle'] = $this->subtitle;
+       
+        $uri = Curl::endpoint();
+        $url = $uri .'/'.'archive/regulation/get-single';
+        $param = array('regulation_id' => $id);
+        $res = Curl::requestPost($url, $param);
+
+        if($res->status == true) {
+            $data['status']  = $res->status;
+            $data['message'] = $res->message;
+            $data['info']    = $res->data; 
+
+            if(Session::get('user_type') == 2) {
+                if(Session::get('satker_id') != $data['info']->satker_id) {
+                    Session::flash('alrt', 'error');    
+                    Session::flash('msgs', 'Data tidak ditemukan'); 
+                    
+                    return redirect()->route('regulation.search');
+                }
+            }
+        }
+        else {
+            $data['list'] = array(); 
+            Session::flash('alrt', 'error');    
+            Session::flash('msgs', $res->message);   
+        }
+
+        return view('archive.regulation.edit', $data);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request)
+    {
+        $uri = Curl::endpoint();
+        $url = $uri .'/'.'archive/regulation/update-data';
+
+        if($request->hasFile('userfile')) {
+            $file = request('userfile');
+            $file_path = $file->getPathName();
+            $file_mime = $file->getClientMimeType();
+            $file_uploaded_name = $file->getClientOriginalName('');
+
+            $client = new Client();
+            $response = $client->request('POST', $url, [
+                'connect_timeout' => 10,
+                'multipart' => [
+                    [
+                        'name'      => 'userfile',
+                        'filename'  => $file_uploaded_name,
+                        'mime-type' => $file_mime,
+                        'contents'  => fopen($file_path, 'r'),
+                    ],
+                    [
+                        'name'      => 'regulation_id',
+                        'contents'  => $request->regulation_id,
+                    ],
+                    [
+                        'name'      => 'satker_id',
+                        'contents'  => $request->satker,
+                    ],
+                    [
+                        'name'      => 'title',
+                        'contents'  => $request->title,
+                    ],
+                    [
+                        'name'      => 'description',
+                        'contents'  => $request->desc,
+                    ],
+                    [
+                        'name'      => 'status',
+                        'contents'  => (($request->status == 1)? 1:0),
+                    ],
+                    [
+                        'name'      => 'regulation_file',
+                        'contents'  => $request->regulation_file,
+                    ],
+                    [
+                        'name'      => 'last_user',
+                        'contents'  => Session::get('user_id'),
+                    ]
+                ]
+            ]);
+            
+            if($response->getStatusCode() == 200) {
+                $body = json_decode($response->getBody());
+                if($body != "") {
+                    $res = $body;
+                }
+                else {
+                    $res = json_decode('{"status": false, "message": "Kesalahan koneksi internal", "data": "[]"}');
+                }
+            }
+            else {
+                $res = json_decode('{"status": false, "message": "Kesalahan respon server", "data": "[]"}');
+            }
+        }
+        else {
+            $param = array(
+                'regulation_id' => $request->regulation_id,
+                'status'        => (($request->status == 1)? 1:0),
+                'name'          => $request->name,
+                'description'   => $request->desc,
+                'last_user'     => Session::get('user_id')
+            );
+            
+            $res = Curl::requestPost($url, $param);
+        }
+
+
+        // if($request->hasFile('userfile')) {
+        //     $ext  = $request->file('userfile')->extension();
+        //     $size = $request->file('userfile')->getSize();
+
+        //     if($ext == "pdf") {
+        //         if($size <= 10000000) {
+        //             $path = $request->file('userfile')->store('public/assets/uploads/regulation');
+        //             $fileName = str_replace('public/assets/uploads/regulation/', '', $path);
+
+        //             if($request->regulation_file != "") {
+        //                 unlink(storage_path('app/public/assets/uploads/regulation/'.$request->regulation_file)); 
+        //             }
+        //         }
+        //         else {
+        //             Session::flash('alrt', 'error');    
+        //             Session::flash('msgs', 'Ukuran berkas maks: 10 MB');  
+
+        //             return redirect()->route('regulation.search');
+        //         }
+        //     }
+        //     else {
+        //         Session::flash('alrt', 'error');    
+        //         Session::flash('msgs', 'Jenis berkas unggahan: pdf');  
+
+        //         return redirect()->route('regulation.search');
+        //     }    
+        // }
+        // else {
+        //     $fileName = $request->regulation_file;
+        //     $size     = $request->regulation_size;
+        // }
+
+        // $uri = Curl::endpoint();
+        // $url = $uri .'/'.'archive/regulation/update-data';
         
-        return view('filemanager.pdf.index', $data, compact('results'));
+        // $param = array(
+        //     'regulation_id' => $request->regulation_id,
+        //     'size'          => $size,
+        //     'file'          => $fileName,
+        //     'title'         => $request->title,
+        //     'description'   => $request->desc,
+        //     'status'        => (($request->status == 1)? 1:0),
+        //     'last_user'     => Session::get('user_id')
+        // );
+        
+        // $res = Curl::requestPost($url, $param);
+
+        Session::flash('alrt', (($res->status == false)?'error':'success'));    
+        Session::flash('msgs', $res->message);  
+
+        return redirect()->route('regulation.search');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $uri = Curl::endpoint();
+        $url = $uri .'/'.'archive/regulation/delete-data';
+        
+        $param = array(
+            'regulation_id' => $id,
+            'last_user'     => Session::get('user_id')
+        );
+        
+        $res = Curl::requestPost($url, $param);
+
+        Session::flash('alrt', (($res->status == false)?'error':'success'));    
+        Session::flash('msgs', $res->message);  
+
+        return redirect()->route('regulation.search');
     }
 }

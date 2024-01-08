@@ -12,43 +12,71 @@
         <div class="col">
             <section class="card card-featured card-featured-primary">
                 <header class="card-header">
-                    <h2 class="card-title">Daftar {{ (($subtitle != "")? $subtitle : $title); }} | Sumber : JDIH Kejaksaan Agung R.I</h2>
+                    <h2 class="card-title">Daftar {{ (($subtitle != "")? $subtitle : $title); }}</h2>
                 </header>
                 <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-striped mb-0">
-                            <thead>
-                                <tr>
-                                    <th width="20%">Nomor</th>
-                                    <th>Judul</th>
-                                    <th width="10%" class="center">Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php if($results->total() > 0) { ?>
-                                <?php foreach ($results as $row) { ?>
-                                <tr>
-                                    <td>{{ $row->noPeraturan }}</td>
-                                    <td>{{ $row->judul }}</td>
-                                    <td class="center">    
-                                        <button type="button" OnClick="link_new_tab('<?php echo $row->urlDownload;  ?>');" class="btn btn-sm btn-info"><i class="fas fa-download"></i> Detail</button>
-                                    </td>
-                                </tr>
-                                <?php } ?>
-                                <?php } else { ?>
-                                    <tr><td class="center" colspan="3">Data tidak ditemukan</td></tr>
-                                <?php } ?>
-                            </tbody>
+                    <form class="form-horizontal form-bordered" action="{{ route('filepdf.filter') }}" method="post">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                        <div class="form-group row pb-3">
+                            <div class="col-lg-8"></div>
+                            <div class="col-lg-4">
+                                <input type="text" class="form-control mb-2" placeholder="Cari berdasarkan berkas pdf ..." 
+                                    name="q" value="{{ $q }}" autocomplete="off" />
+                            </div>
+                            <div class="col-lg-10"></div>
+                            <div class="col-lg-2">
+                                <button style="float:right;" class="btn btn-sm btn-primary mb-1 mt-1 me-1">Cari</button>
+                                <a style="float:right;" href="{{ route('filepdf.index') }}" class="btn btn-sm btn-default mb-1 mt-1 me-1">Bersihkan</a>
+                            </div>
+                        </div>
+                    </form> 
+                    <div class="media-gallery mg-main">
+                        <div class="row mg-files" data-sort-destination data-sort-id="media-gallery">
                             <?php if($results->total() > 0) { ?>
-                            <tfoot>    
-                                <tr>
-                                    <td>Total <b>{{ $results->total() }}</b> Data</td>
-                                    <td colspan="2"><span style="margin-top: 15px;float:right;">{{ $results->onEachSide(1)->links() }}</span></td>
-                                </tr>
-                            </tfoot>
+                                <?php foreach ($results as $row) { ?>
+                                    <div class="isotope-item document col-sm-6 col-md-4 col-lg-3">
+                                        <div class="thumbnail">
+                                            <div class="thumb-preview" style="background-color: #00AC69;">
+                                                <div class="card-header-icon">
+                                                    <i class="fas fa-file-pdf"></i>
+                                                </div>
+                                                <div class="mg-thumb-options">
+                                                    <div class="mg-toolbar">
+                                                        <a href="javascript:void(0);" OnClick="link_new_tab('{{ $row->upload_path }}');" class="mg-option checkbox-custom" style="color: white;">
+                                                            <i class="fas fa-download"></i>
+                                                            UNDUH
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h5 class="mg-title font-weight-semibold">{{ Status::str_ellipsis($row->upload_name, 20) }}</h5>
+                                            <div class="mg-description">
+                                                <small class="float-left text-muted">{{ $row->satker_name }}</small>
+                                                <small class="float-end text-muted">{{ (($row->upload_size == 0)? 0:intval($row->upload_size / 1000)) .'KB' }}</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php } ?>
+                            <?php } else { ?>
+                                <div>
+                                    <center>
+                                        <div class="result-data">
+                                            <p class="description">
+                                                <i class="fas fa-exclamation-triangle fa-fw text-warning text-5 va-middle"></i>
+                                                <span class="va-middle">Data tidak ditemukan.</span>
+                                            </p>
+                                        </div>
+                                    </center>
+                                </div>
                             <?php } ?>
-                        </table>
+                        </div>
                     </div>
+                </div>
+                <div class="card-footer">
+                    <?php if(!empty($results)) { ?>
+                    <p class="text-muted text-uppercase pull-left mt-3">Total Data : {{ $results->total() }}</p>
+                    <div class="pull-right mt-3" style="margin-right: 5px;">{{ $results->onEachSide(1)->links() }}</div>
+                    <?php } ?>
                 </div>
             </section>
         </div>

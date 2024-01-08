@@ -38,7 +38,7 @@
                         </div>
                         <div class="widget-summary-col">
                             <div class="summary">
-                                <h4 class="title">{{ $row->title }}</h4>
+                                <h4 class="title">{{ Status::str_ellipsis($row->title, 20) }}</h4>
                                 <div class="info">
                                     <strong class="amount">{{ number_format($row->count) }}</strong>
                                     <span class="text-primary">
