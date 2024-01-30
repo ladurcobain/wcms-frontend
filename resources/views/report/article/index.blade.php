@@ -103,6 +103,7 @@
                                     <th width="10%">Kategori</th>
                                     <th width="40%">Judul Berita</th>
                                     <th>Satuan Kerja</th>
+                                    <th class="center" width="10%">Gambar</th>
                                     <th width="10%">Status</th>
                                 </tr>
                             </thead>
@@ -114,18 +115,25 @@
                                     <td>{{ $row->news_category}}</td>
                                     <td>{{ $row->news_title}}</td>
                                     <td>{{ $row->news_satker}}</td>
+                                    <td class="center">
+                                        <?php if($row->news_image != "") { ?>
+                                            <img src="{{ $row->news_path }}" alt="Webphada" class="img-thumbnail" />
+                                        <?php } else { ?>
+                                            <img src="{{ asset('assets/img/logo-webphada.png') }}" alt="Webphada" class=" user-image img-thumbnail" />
+                                        <?php } ?>   
+                                    </td>
                                     <td class="center"><span class="badge badge-<?php echo (($row->news_status == 1 ? "success" : "danger")); ?>"><?php echo (($row->news_status == 1 ? Status::tipeNews(1) : Status::tipeNews(2))); ?></span></td>
                                 </tr>
                                 <?php } ?>
                                 <?php } else { ?>
-                                    <tr><td class="center" colspan="5">Data tidak ditemukan</td></tr>
+                                    <tr><td class="center" colspan="6">Data tidak ditemukan</td></tr>
                                 <?php } ?>
                             </tbody>
                             <?php if($results->total() > 0) { ?>
                             <tfoot>    
                                 <tr>
                                     <td colspan="2">Total <b>{{ $results->total() }}</b> Data</td>
-                                    <td colspan="3"><span style="margin-top: 15px;float:right;">{{ $results->onEachSide(1)->links() }}</span></td>
+                                    <td colspan="4"><span style="margin-top: 15px;float:right;">{{ $results->onEachSide(1)->links() }}</span></td>
                                 </tr>
                             </tfoot>
                             <?php } ?>
