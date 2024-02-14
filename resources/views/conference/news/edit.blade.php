@@ -90,6 +90,7 @@
                                     <input type="text" class="form-control" id="link_youtube" name="link_youtube"
                                         placeholder="Tautan Youtube" value="{{ $info->news_link_youtube }}"
                                         autocomplete="off" />
+                                    <span class="help-block">Isi dengan link Youtube yang ingin dibagikan</span>
                                 </div>
                             </div>
                             <div class="form-group row pb-2">
@@ -98,6 +99,7 @@
                                     <input type="text" class="form-control" id="link_instagram" name="link_instagram"
                                         placeholder="Tautan Instagram" value="{{ $info->news_link_instagram }}"
                                         autocomplete="off" />
+                                    <span class="help-block">Isi dengan link Instagram yang ingin dibagikan</span>
                                 </div>
                             </div>
                             <?php
