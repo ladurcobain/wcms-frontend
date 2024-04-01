@@ -36,7 +36,7 @@
 <script src="{{ asset('assets/vendor/flot/jquery.flot.resize.js') }}"></script>
 <script src="{{ asset('assets/vendor/isotope/isotope.js') }}"></script>
 <script src="{{ asset('assets/vendor/jquery-nestable/jquery.nestable.js') }}"></script>
-<script src="{{ asset('assets/vendor/summernote/summernote-bs4.js') }}"></script>
+<script src="{{ asset('assets/vendor/summernote/summernote-lite.js') }}"></script>
 
 <!-- Theme Base, Components and Settings -->
 <script src="{{ asset('assets/js/theme.js') }}"></script>

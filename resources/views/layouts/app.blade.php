@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="{{ asset('assets/vendor/boxicons/css/boxicons.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/vendor/magnific-popup/magnific-popup.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/vendor/summernote/summernote-bs4.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/vendor/summernote/summernote-lite.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/vendor/jstree/themes/default/style.css') }}" />
 
     <!-- Specific Page Vendor CSS -->
