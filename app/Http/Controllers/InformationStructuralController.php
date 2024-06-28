@@ -151,7 +151,7 @@ class InformationStructuralController extends Controller
                         'contents'  => $request->satker,
                     ],
                     [
-                        'position'  => 'position',
+                        'name'      => 'position',
                         'contents'  => $request->position,
                     ],
                     [
@@ -293,7 +293,7 @@ class InformationStructuralController extends Controller
                         'contents'  => $request->structural_id,
                     ],
                     [
-                        'position'  => 'position',
+                        'name'      => 'position',
                         'contents'  => $request->position,
                     ],
                     [
