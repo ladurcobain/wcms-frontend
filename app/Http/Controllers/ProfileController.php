@@ -128,21 +128,29 @@ class ProfileController extends Controller
 
     public function password(Request $request)
     {
-        $uri = Curl::endpoint();
-        $url = $uri .'/'.'auth/change-password';
-        
-        $param = array(
-            'user_id'           => Session::get('user_id'),
-            'oldpassword'       => $request->oldpassword,
-            'newpassword'       => $request->newpassword,
-            'confirmpassword'   => $request->confirmpassword
-        );
-        
-        $res = Curl::requestPost($url, $param);
+        if($request->input('strength') < 3) {
+            Session::flash('alrt', 'error');    
+            Session::flash('msgs', 'Kata sandi Anda lemah');  
 
-        Session::flash('alrt', (($res->status == false)?'error':'success'));    
-        Session::flash('msgs', $res->message);  
+            return redirect()->route('profile.edit');
+        }
+        else {
+            $uri = Curl::endpoint();
+            $url = $uri .'/'.'auth/change-password';
+            
+            $param = array(
+                'user_id'           => Session::get('user_id'),
+                'oldpassword'       => $request->oldpassword,
+                'newpassword'       => $request->newpassword,
+                'confirmpassword'   => $request->confirmpassword
+            );
+            
+            $res = Curl::requestPost($url, $param);
 
-        return redirect()->route('profile.edit');
+            Session::flash('alrt', (($res->status == false)?'error':'success'));    
+            Session::flash('msgs', $res->message);  
+
+            return redirect()->route('profile.edit');
+        }
     }
 }

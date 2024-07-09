@@ -9,6 +9,12 @@ use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
 {
+    public function myIp() {
+        echo "_SERVER['REMOTE_ADDR'] = ". $_SERVER['REMOTE_ADDR'];
+        echo "<br />";
+        //echo "". getClientIp();
+    }
+    
     public function index()
     {
         if (Session::get('login')) {

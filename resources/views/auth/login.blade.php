@@ -38,7 +38,6 @@
 
 		<!-- Head Libs -->
 		<script src="{{ asset('assets/vendor/modernizr/modernizr.js') }}"></script>
-
 	</head>
 	<body>
 		<!-- start: page -->
@@ -48,7 +47,7 @@
 					<div class="card-body">
                         <form action="{{ route('login.post') }}" method="post">
                             @csrf
-                            <div class="current-user text-center">
+							<div class="current-user text-center">
 								<img src="{{ asset('assets/img/logo/kejaksaan-logo.jpg') }}" alt="Webphada" class="user-image" style="background-color: white;width: 150px;padding:10px;" />
 								
 								@if (session()->has('alert'))

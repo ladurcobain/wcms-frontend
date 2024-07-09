@@ -7,6 +7,49 @@
 @section('content')
     @include('layouts.partials.breadcrumb')
 
+    <style>
+        .power-container { 
+            background-color: #2E424D; 
+            width: 100%; 
+            height: 15px; 
+            border-radius: 5px; 
+        } 
+        
+        .power-container #power-point { 
+            background-color: #D73F40; 
+            width: 1%; 
+            height: 100%; 
+            border-radius: 5px; 
+            transition: 0.5s; 
+        }
+    </style>
+
+    <script>
+        function check_password(value) {
+            var point = 0; 
+            var power = document.getElementById("power-point"); 
+
+            var widthPower =  
+                ["1%", "25%", "50%", "75%", "100%"]; 
+                var colorPower =  
+                ["#D73F40", "#DC6551", "#F2B84F", "#BDE952", "#3ba62f"]; 
+        
+            if (value.length >= 6) { 
+                var arrayTest =  
+                    [/[0-9]/, /[a-z]/, /[A-Z]/, /[^0-9a-zA-Z]/]; 
+                arrayTest.forEach((item) => { 
+                    if (item.test(value)) { 
+                        point += 1; 
+                    } 
+                }); 
+            } 
+
+            power.style.width = widthPower[point]; 
+            power.style.backgroundColor = colorPower[point]; 
+            document.getElementById("strength").value = point; 
+        }
+    </script>
+    
     <div class="col-lg-12 col-md-12">
         <div class="row">
             <div class="col">
@@ -54,6 +97,7 @@
                                             <form id="form" class="form-horizontal form-bordered"
                                                 action="{{ route('profile.update') }}" method="post" novalidate
                                                 enctype="multipart/form-data">
+                                                
                                                 <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                                                 <input type="hidden" name="user_image" value="{{ $info->user_image }}" />
                                                 <div class="form-group row pb-2">
@@ -96,6 +140,8 @@
                                 <div id="password" class="tab-pane">
                                     <form id="form" class="form-horizontal form-bordered"
                                         action="{{ route('profile.password') }}" method="post" novalidate>
+                                        
+                                        <input value="0" name="strength" id="strength" type="text" readonly />
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                                         <div class="form-group row pb-3">
                                             <label class="col-sm-3 control-label text-sm-end pt-2">Kata Sandi Lama <span
@@ -112,7 +158,12 @@
                                             <div class="col-sm-9">
                                                 <input type="password" class="form-control" id="newpassword"
                                                     name="newpassword" value="" placeholder="Kata Sandi Baru"
-                                                    autocomplete="off" required />
+                                                    autocomplete="off" required onkeyup="check_password(this.value);" />
+                                                <span class="help-block">
+                                                    <div class="power-container"> 
+                                                        <div id="power-point"></div> 
+                                                    </div>
+                                                </span>
                                             </div>
                                         </div>
                                         <div class="form-group row pb-3">
