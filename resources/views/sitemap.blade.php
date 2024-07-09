@@ -132,6 +132,7 @@
                 responsive: true,
                 bInfo: false,
                 "pageLength": 100,
+                "ordering":false,
                 "oLanguage": {
                     //"ssearchPlaceholder":"Pencarian",
                     "sZeroRecords": "Data tidak ditemukan",
