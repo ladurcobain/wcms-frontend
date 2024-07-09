@@ -17,7 +17,7 @@
                                 <h2 class="card-title">Daftar {{ (($subtitle != "")? $subtitle : $title); }}</h2>
                             </div>
                             <div class="pull-right">
-                                <a class="btn btn-sm btn-primary" href="{{ route('infografis.create') }}" > <i class="fas fa-plus"></i> Tambah</a>
+                                <a class="btn btn-sm btn-primary" href="{{ route('related.create') }}" > <i class="fas fa-plus"></i> Tambah</a>
                             </div>
                         </div>
                     </div>
@@ -31,7 +31,7 @@
                     </div>
                     @endif
 
-                    <form class="form-horizontal form-bordered" action="{{ route('infografis.filter') }}" method="post">
+                    <form class="form-horizontal form-bordered" action="{{ route('related.filter') }}" method="post">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                         <div class="form-group row pb-3">
                             <div class="col-lg-4"></div>
@@ -46,18 +46,18 @@
                                 </select>
                             </div>
                             <div class="col-lg-4 mb-2">
-                                <input type="text" class="form-control" placeholder="Cari berdasarkan nama infografis ..." 
+                                <input type="text" class="form-control" placeholder="Cari berdasarkan nama situs ..." 
                                     name="q" value="{{ $q }}" autocomplete="off" />
                             </div>
                             <div class="col-lg-10"></div>
                             <div class="col-lg-2">
                                 <button style="float:right;" class="btn btn-sm btn-primary mb-1 mt-1 me-1">Cari</button>
-                                <a style="float:right;" href="{{ route('infografis.index') }}" class="btn btn-sm btn-default mb-1 mt-1 me-1">Bersihkan</a>
+                                <a style="float:right;" href="{{ route('related.index') }}" class="btn btn-sm btn-default mb-1 mt-1 me-1">Bersihkan</a>
                             </div>
                         </div> 
-                    </form>     
+                    </form> 
                     <div class="table-responsive">
-                        <table class="table table-bordered table-striped mb-0" id="dtTable" style="width:100%">
+                        <table class="table table-bordered table-striped mb-0">
                             <thead>
                                 <tr>
                                     <th width="25%">Satuan Kerja</th>
@@ -96,7 +96,12 @@
                                 <?php } ?>
                             </tbody>
                             <?php if($results->total() > 0) { ?>
-                            
+                            <tfoot>    
+                                <tr>
+                                    <td>Total <b>{{ $results->total() }}</b> Data</td>
+                                    <td colspan="4"><span style="margin-top: 15px;float:right;">{{ $results->onEachSide(1)->links() }}</span></td>
+                                </tr>
+                            </tfoot>
                             <?php } ?>
                         </table>
                     </div>
