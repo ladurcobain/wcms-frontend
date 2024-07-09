@@ -141,7 +141,7 @@
                                     <form id="form" class="form-horizontal form-bordered"
                                         action="{{ route('profile.password') }}" method="post" novalidate>
                                         
-                                        <input value="0" name="strength" id="strength" type="text" readonly />
+                                        <input value="0" name="strength" id="strength" type="hidden" readonly />
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                                         <div class="form-group row pb-3">
                                             <label class="col-sm-3 control-label text-sm-end pt-2">Kata Sandi Lama <span

@@ -96,12 +96,7 @@
                                 <?php } ?>
                             </tbody>
                             <?php if($results->total() > 0) { ?>
-                            <tfoot>    
-                                <tr>
-                                    <td>Total <b>{{ $results->total() }}</b> Data</td>
-                                    <td colspan="4"><span style="margin-top: 15px;float:right;">{{ $results->onEachSide(1)->links() }}</span></td>
-                                </tr>
-                            </tfoot>
+                            
                             <?php } ?>
                         </table>
                     </div>
