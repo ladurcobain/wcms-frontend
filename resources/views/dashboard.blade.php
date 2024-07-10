@@ -40,7 +40,7 @@
                             <div class="summary">
                                 <h4 class="title">{{ Status::str_ellipsis($row->title, 20) }}</h4>
                                 <div class="info">
-                                    <strong class="amount">{{ number_format($row->count) }}</strong>
+                                    <strong class="amount">{{ Status::shortNumber($row->count) }}</strong>
                                     <span class="text-primary">
                                         <!--<a href="javascript:void(0);" OnClick="dialogDetail(<?php //echo $i; ?>);">(selengkapnya)</a>-->
                                         <?php if($i == 1) { ?>
