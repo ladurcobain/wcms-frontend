@@ -5,14 +5,11 @@
 
     <!-- Basic -->
     <meta charset="UTF-8">
-    <meta http-equiv="Cache-control" content="public">
-    
     <title>{{ str_replace("-", " ", config('app.name')) }} | @yield('title')</title>
     <meta name="author" content="{{ config('app.name') }}">
     <meta name="keywords" content="{{ config('app.name') }}" />
     <meta name="description" content="{{ config('app.name') }}">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/logo/kejaksaan-logo.jpg') }}" />
 
     <script>var base_url = "{{ URL::to('/') }}/"</script> 
