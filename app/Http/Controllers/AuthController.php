@@ -66,7 +66,7 @@ class AuthController extends Controller
 
             return redirect()->route('dashboard.index');
         } else {
-            return redirect('login')->with('alert', $res->message);
+            return redirect('/')->with('alert', $res->message);
         }
     }
 
@@ -88,7 +88,7 @@ class AuthController extends Controller
         } else {
             Session::flush();
 
-            return redirect('login')->with('alert', $res->message);
+            return redirect('/')->with('alert', $res->message);
         }
     }
 
