@@ -117,7 +117,7 @@
                                     <?php } ?>
                                     <?php } else { ?>
                                     <tr>
-                                        <td class="center" colspan="7">Data tidak ditemukan</td>
+                                        <td class="center" colspan="6">Data tidak ditemukan</td>
                                     </tr>
                                     <?php } ?>
                                 </tbody>
@@ -125,7 +125,7 @@
                                 <tfoot>
                                     <tr>
                                         <td>Total <b>{{ $results->total() }}</b> Data</td>
-                                        <td colspan="6"><span
+                                        <td colspan="5"><span
                                                 style="margin-top: 15px;float:right;">{{ $results->onEachSide(1)->links() }}</span>
                                         </td>
                                     </tr>
