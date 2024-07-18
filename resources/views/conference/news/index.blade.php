@@ -81,7 +81,7 @@
                                         <th width="12%">Tanggal</th>
                                         <th width="10%">Kategori</th>
                                         <th>Judul Berita</th>
-                                        <!--<th class="center" width="10%">Gambar</th>-->
+                                        <th class="center" width="10%">Gambar</th>
                                         <th class="center" width="10%">Status</th>
                                         <th class="center" width="20%">Aksi</th>
                                     </tr>
@@ -94,13 +94,13 @@
                                         <td class="center">{{ $row->news_date }}</td>
                                         <td class="center">{{ $row->news_category }}</td>
                                         <td>{{ $row->news_title }}</td>
-                                        <!-- <td class="center">
+                                        <td class="center">
                                             <?php if($row->news_image != "") { ?>
-                                                <img src="{{ $row->news_path }}" alt="Webphada" class="img-thumbnail" />
+                                                <img loading="lazy" src="{{ $row->news_path }}" alt="Webphada" class="img-thumbnail" />
                                             <?php } else { ?>
-                                                <img src="{{ asset('assets/img/logo-webphada.png') }}" alt="Webphada" class=" user-image img-thumbnail" />
+                                                <img loading="lazy" src="{{ asset('assets/img/logo-webphada.png') }}" alt="Webphada" class=" user-image img-thumbnail" />
                                             <?php } ?>   
-                                        </td> -->
+                                        </td>
                                         <td class="center"><span
                                                 class="badge badge-<?php echo $row->news_status == 1 ? 'success' : 'danger'; ?>"><?php echo $row->news_status == 1 ? Status::tipeNews(1) : Status::tipeNews(2); ?></span></td>
                                         <td class="center">
@@ -117,7 +117,7 @@
                                     <?php } ?>
                                     <?php } else { ?>
                                     <tr>
-                                        <td class="center" colspan="6">Data tidak ditemukan</td>
+                                        <td class="center" colspan="7">Data tidak ditemukan</td>
                                     </tr>
                                     <?php } ?>
                                 </tbody>
@@ -125,7 +125,7 @@
                                 <tfoot>
                                     <tr>
                                         <td>Total <b>{{ $results->total() }}</b> Data</td>
-                                        <td colspan="5"><span
+                                        <td colspan="6"><span
                                                 style="margin-top: 15px;float:right;">{{ $results->onEachSide(1)->links() }}</span>
                                         </td>
                                     </tr>

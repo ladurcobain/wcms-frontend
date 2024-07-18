@@ -101,7 +101,6 @@ class AuthController extends Controller
 
     public function scheduleBackup()
     {
-        echo "Coklat"; die();
         return response()->json([
             'captcha'=> captcha_img()
         ]);
