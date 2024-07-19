@@ -31,7 +31,7 @@
                     </div>
                     @endif
 
-                    <form class="form-horizontal form-bordered" action="{{ route('related.filter') }}" method="post">
+                    <form class="form-horizontal form-bordered" action="{{ route('infografis.filter') }}" method="post">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                         <div class="form-group row pb-3">
                             <div class="col-lg-4"></div>
