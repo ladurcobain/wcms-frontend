@@ -109,7 +109,7 @@
                                                         autocomplete="off" />
                                                 </div>
                                             </div>
-                                            <div class="form-group row pb-2">
+                                            <div class="form-group row pb-3">
                                                 <label class="col-sm-3 control-label text-sm-end pt-2">Alamat</label>
                                                 <div class="col-sm-9">
                                                     <textarea class="form-control" id="address" name="address" rows="2"
@@ -117,17 +117,7 @@
                                                         placeholder="Alamat ...">{{ strip_tags($info->satker_address) }}</textarea>
                                                 </div>
                                             </div>
-                                            <div class="form-group row pb-2">
-                                                <label class="col-sm-3 control-label text-sm-end pt-2">Tampilan Memuat Halaman</label>
-                                                <div class="col-sm-9">
-                                                    <select data-plugin-selectTwo class="form-control populate placeholder" data-plugin-options='{ "placeholder": "Pilih Tampilan Memuat Halaman ...", "allowClear": true }' id="overlay" name="overlay">
-                                                        <option></option>
-                                                        <?php for($i=0; $i<=10; $i++) { ?>
-                                                        <option value="<?php echo $i; ?>" {{ ($info->satker_overlay == $i)? 'selected':'' }} ><?php echo Status::loadingOverlay($i); ?></option>           
-                                                        <?php } ?>
-                                                    </select>	
-                                                </div>
-                                            </div>
+                                            <input type="hidden" name="overlay" value="" readonly />
                                             <div class="row justify-content-end pb-3">
                                                 <div class="col-sm-9">
                                                     <button type="reset" class="btn btn-default">Batal</button>
