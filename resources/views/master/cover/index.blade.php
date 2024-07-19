@@ -65,9 +65,9 @@
                                     <td>{{ $row->cover_description }}</td>
                                     <td class="center">
                                         <?php if($row->cover_image != "") { ?>
-                                            <img src="{{ $row->cover_path }}" alt="Webphada" class="img-thumbnail" />
+                                            <img loading="lazy" src="{{ $row->cover_path }}" alt="Webphada" class="img-thumbnail" />
                                         <?php } else { ?>
-                                            <img src="{{ asset('assets/img/logo-webphada.png') }}" alt="Webphada" class=" user-image img-thumbnail" />
+                                            <img loading="lazy" src="{{ asset('assets/img/logo-webphada.png') }}" alt="Webphada" class=" user-image img-thumbnail" />
                                         <?php } ?>   
                                     </td>
                                     <td class="center"><span class="badge badge-<?php echo (($row->cover_status == 1 ? "info" : "dark")); ?>"><?php echo (($row->cover_status == 1 ? Status::tipeStatus(1) : Status::tipeStatus(2))); ?></span></td>

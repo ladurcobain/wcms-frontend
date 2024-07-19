@@ -59,6 +59,8 @@
     <script>var is_nestable = 0;</script>
 </head>
 
+<body>
+<!-- 
 <body class="loading-overlay-showing" data-loading-overlay>
     <div class="loading-overlay">
         <div class="bounce-loader">
@@ -67,6 +69,7 @@
             <div class="bounce3"></div>
         </div>
     </div>
+-->
 
     @include('sweetalert::alert')
 

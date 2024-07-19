@@ -63,7 +63,7 @@
                                     <th width="25%">Satuan Kerja</th>
                                     <th width="15%">Tingkat</th>
                                     <th>Nama Pejabat</th>
-                                    <!-- <th class="center" width="10%">Gambar</th> -->
+                                    <th class="center" width="10%">Gambar</th>
                                     <th class="center" width="10%">Status</th>
                                     <th class="center" width="20%">Aksi</th>
                                 </tr>
@@ -75,13 +75,13 @@
                                     <td>{{ $row->structural_satker}}</td>
                                     <td>Tingkat {{ $row->structural_position}}</td>
                                     <td>{{ $row->structural_name}}</td>
-                                    <!-- <td class="center">
+                                    <td class="center">
                                         <?php if($row->structural_image != "") { ?>
-                                            <img src="{{ $row->structural_path }}" alt="Webphada" class="img-thumbnail" />
+                                            <img loading="lazy" src="{{ $row->structural_path }}" alt="Webphada" class="img-thumbnail" />
                                         <?php } else { ?>
-                                            <img src="{{ asset('assets/img/logo-webphada.png') }}" alt="Webphada" class=" user-image img-thumbnail" />
+                                            <img loading="lazy" src="{{ asset('assets/img/logo-webphada.png') }}" alt="Webphada" class=" user-image img-thumbnail" />
                                         <?php } ?>   
-                                    </td> -->
+                                    </td>
                                     <td class="center"><span class="badge badge-<?php echo (($row->structural_status == 1 ? "info" : "dark")); ?>"><?php echo (($row->structural_status == 1 ? Status::tipeStatus(1) : Status::tipeStatus(2))); ?></span></td>
                                     <td class="center">
                                         <button type="button" class="btn btn-sm btn-warning modalConfirmEdit"
@@ -94,14 +94,14 @@
                                 </tr>
                                 <?php } ?>
                                 <?php } else { ?>
-                                    <tr><td class="center" colspan="5">Data tidak ditemukan</td></tr>
+                                    <tr><td class="center" colspan="6">Data tidak ditemukan</td></tr>
                                 <?php } ?>
                             </tbody>
                             <?php if($results->total() > 0) { ?>
                             <tfoot>    
                                 <tr>
                                     <td>Total <b>{{ $results->total() }}</b> Data</td>
-                                    <td colspan="4"><span style="margin-top: 15px;float:right;">{{ $results->onEachSide(1)->links() }}</span></td>
+                                    <td colspan="5"><span style="margin-top: 15px;float:right;">{{ $results->onEachSide(1)->links() }}</span></td>
                                 </tr>
                             </tfoot>
                             <?php } ?>

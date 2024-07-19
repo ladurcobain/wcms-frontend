@@ -38,7 +38,7 @@
                                         <div class="thumbnail">
                                             <div class="thumb-preview">
                                                 <a class="thumb-image" href="{{ $row->upload_path }}">
-                                                    <img src="{{ $row->upload_path }}" class="img-fluid" alt="{{ $row->upload_name }}" />
+                                                    <img loading="lazy" src="{{ $row->upload_path }}" class="img-fluid" alt="{{ $row->upload_name }}" />
                                                 </a>
                                                 <div class="mg-thumb-options">
                                                     <div class="mg-zoom"><i class="bx bx-search"></i></div>

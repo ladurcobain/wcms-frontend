@@ -105,7 +105,7 @@
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control" id="link_youtube" name="link_youtube"
                                         placeholder="Tautan Youtube" autocomplete="off" />
-                                    <span class="help-block">Isi dengan link Youtube yang ingin dibagikan</span>
+                                    <span class="help-block">Cara menambahkan <a href="javascript:void(0);" OnClick="modal_youtube();">Url Youtube</a></span>
                                 </div>
                             </div>
                             <div class="form-group row pb-2">
@@ -113,7 +113,7 @@
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control" id="link_instagram" name="link_instagram"
                                         placeholder="Tautan Instagram" autocomplete="off" />
-                                    <span class="help-block">Isi dengan link Instagram yang ingin dibagikan</span>
+                                    <span class="help-block">Cara menambahkan <a href="javascript:void(0);" OnClick="modal_instagram();">Url Profil Instagram</a></span>
                                 </div>
                             </div>
                             <div id="upload-img-news" style="display:none;">
@@ -146,4 +146,98 @@
         CKEDITOR.replace('editor_en');
     </script>
 
+<div id="modalInstagram" class="modal animated bounceIn" tabindex="-1" role="dialog" aria-labelledby="modalInstagram" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-body" id="modal-content">
+                    <div class="card card-modern">
+                        <div class="card-header">
+                            <h2 class="card-title"></h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="ecommerce-timeline mb-3">
+                                <div class="tm-title">
+                                    <h5 class="m-0 pt-2 pb-2 text-dark font-weight-semibold text-uppercase">Cara menambahkan Url Profil Instagram</h5>
+                                </div>
+                                <div class="ecommerce-timeline-items-wrapper">
+                                    <div class="ecommerce-timeline-item">
+                                        <small>Buka website <a target="_blank" href="https://www.instagram.com/" class="text-color-primary">Instagram</a></small>
+                                        <p>Kemudian salin <i>url instagram</i> profil tersebut</p>
+                                    </div>
+                                    <div class="ecommerce-timeline-item">
+                                        <p>Mencari profil berdasarkan nama</p>
+                                        <div>
+                                            <ol>
+                                                <li>Ketuk <i class="bx bx-search"></i> ikon kaca pembesar</li>
+                                                <li>Ketik nama pengguna orang di Bilah Pencarian</li>
+                                                <li>Lihatlah hasilnya dan cobalah untuk cari seseorang yang tepat</li>
+                                            </ol>
+                                        </div>
+                                    </div>
+                                    <div class="ecommerce-timeline-item">
+                                        <div class="thumbnail-gallery">
+                                            <img class="img-fluid" width="100%" src="{{ asset('assets/img/guide_instagram.png') }}" alt="Pencarian instagram" />
+                                        </div>    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function modal_instagram() {
+            $('#modalInstagram').modal('show');
+        }
+    </script>
+
+    <div id="modalYoutube" class="modal animated bounceIn" tabindex="-1" role="dialog" aria-labelledby="modalYoutube" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-body" id="modal-content">
+                    <div class="card card-modern">
+                        <div class="card-header">
+                            <h2 class="card-title"></h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="ecommerce-timeline mb-3">
+                                <div class="tm-title">
+                                    <h5 class="m-0 pt-2 pb-2 text-dark font-weight-semibold text-uppercase">Cara menambahkan Url Youtube</h5>
+                                </div>
+                                <div class="ecommerce-timeline-items-wrapper">
+                                    <div class="ecommerce-timeline-item">
+                                        <small>Buka website <a target="_blank" href="https://www.youtube.com/" class="text-color-primary">Youtube</a></small>
+                                        <p>Kemudian salin <i>url youtube</i> video tersebut</p>
+                                    </div>
+                                    <div class="ecommerce-timeline-item">
+                                        <p>Mencari video yang ingin bagikan</p>
+                                        <div>
+                                            <ol>
+                                                <li>Buka video yang ingin Anda bagikan</li>
+                                                <li>Di bawah pemutar video, ketuk <i class="bx bx-share"></i> Bagikan</li>
+                                                <li>Akan muncul panel yang menampilkan beberapa opsi berbagi</li>
+                                                <li>Pilih Salin tautan, untuk menyalin dan menempelkan URL video tersebut</li>
+                                            </ol>
+                                        </div>
+                                    </div>
+                                    <div class="ecommerce-timeline-item">
+                                        <div class="thumbnail-gallery">
+                                            <img class="img-fluid" width="100%" src="{{ asset('assets/img/guide_youtube.png') }}" alt="Pencarian youtube" />
+                                        </div>    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function modal_youtube() {
+            $('#modalYoutube').modal('show');
+        }
+    </script>
 @endsection

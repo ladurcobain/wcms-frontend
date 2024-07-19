@@ -117,9 +117,9 @@
                                     <td>{{ $row->news_satker}}</td>
                                     <td class="center">
                                         <?php if($row->news_image != "") { ?>
-                                            <img src="{{ $row->news_path }}" alt="Webphada" class="img-thumbnail" />
+                                            <img loading="lazy" src="{{ $row->news_path }}" alt="Webphada" class="img-thumbnail" />
                                         <?php } else { ?>
-                                            <img src="{{ asset('assets/img/logo-webphada.png') }}" alt="Webphada" class=" user-image img-thumbnail" />
+                                            <img loading="lazy" src="{{ asset('assets/img/logo-webphada.png') }}" alt="Webphada" class=" user-image img-thumbnail" />
                                         <?php } ?>   
                                     </td>
                                     <td class="center"><span class="badge badge-<?php echo (($row->news_status == 1 ? "success" : "danger")); ?>"><?php echo (($row->news_status == 1 ? Status::tipeNews(1) : Status::tipeNews(2))); ?></span></td>
