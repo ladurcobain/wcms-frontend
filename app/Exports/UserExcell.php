@@ -43,11 +43,12 @@ class UserExcell implements FromCollection, WithHeadings, ShouldAutoSize, WithEv
                 $arr[] = array(
                     'type'          => Status::tipeUser($r->user_type),
                     'username'      => $r->user_account,
+                    //'password'      => $r->user_password,
                     'fullname'      => $r->user_fullname,
-                    'code'          => $r->user_code,
-                    'phone'         => $r->user_phone,
+                    //'code'          => $r->user_code,
+                    //'phone'         => $r->user_phone,
                     'email'         => $r->user_email,
-                    'address'       => $r->user_address,
+                    //'address'       => $r->user_address,
                     'lastactivity'  => $r->user_activity,
                     'lastlogin'     => $r->user_login,
                 );
@@ -62,11 +63,12 @@ class UserExcell implements FromCollection, WithHeadings, ShouldAutoSize, WithEv
         return [
             "Tipe",
             "Nama Akun",
+            //"Password",
             "Nama Lengkap",
-            "NIK",
-            "No. Telepon",
+            //"NIK",
+            //"No. Telepon",
             "Email",
-            "Alamat",
+            //"Alamat",
             "Aktivitas Terakhir",
             "Akses Terakhir",
         ];
