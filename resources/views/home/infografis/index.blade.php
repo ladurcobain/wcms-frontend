@@ -17,7 +17,7 @@
                                 <h2 class="card-title">Daftar {{ (($subtitle != "")? $subtitle : $title); }}</h2>
                             </div>
                             <div class="pull-right">
-                                <a class="btn btn-sm btn-primary" href="{{ route('related.create') }}" > <i class="fas fa-plus"></i> Tambah</a>
+                                <a class="btn btn-sm btn-primary" href="{{ route('infografis.create') }}" > <i class="fas fa-plus"></i> Tambah</a>
                             </div>
                         </div>
                     </div>
