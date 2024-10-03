@@ -110,7 +110,9 @@ class AuthController extends Controller
     }
 
     public function response() {
-        $satkers = DB::table('tm_satker')->get();
+        $offset = 0;
+        $limit  = 100;
+        $satkers = DB::table('tm_satker')->skip($offset)->take($limit)->get();
         
         $ch = curl_init(); 
         $arr = array();
