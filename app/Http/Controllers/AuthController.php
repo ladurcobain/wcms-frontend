@@ -110,7 +110,7 @@ class AuthController extends Controller
     }
 
     public function response() {
-        $satkers = DB::table('tm_satkerz')->get();
+        $satkers = DB::table('tm_satker')->get();
         
         $ch = curl_init(); 
         $arr = array();
