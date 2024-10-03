@@ -3,17 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Curl;
-
+use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
 {
-    public function myIp() {
-        echo "_SERVER['REMOTE_ADDR'] = ". $_SERVER['REMOTE_ADDR'];
-        echo "<br />";
-        //echo "". getClientIp();
-    }
     
     public function index()
     {
@@ -104,5 +99,61 @@ class AuthController extends Controller
         return response()->json([
             'captcha'=> captcha_img()
         ]);
+    }
+
+
+
+    public function myIp() {
+        echo "_SERVER['REMOTE_ADDR'] = ". $_SERVER['REMOTE_ADDR'];
+        echo "<br />";
+        //echo "". getClientIp();
+    }
+
+    public function response() {
+        $satkers = DB::table('tm_satkerz')->get();
+        
+        $ch = curl_init(); 
+        $arr = array();
+
+        foreach($satkers as $row) {
+            $satker_name = $row->satker_name;
+            $satker_url  = $row->satker_url;
+        
+            $url = $satker_url ."ajax/response";  
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);  
+            $output = curl_exec($ch); 
+            $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            if($httpcode != 200) {
+                $arr[] = $satker_name;
+            }
+        }
+
+        curl_close($ch);    
+        echo json_encode($arr); die();  
+        //echo $httpcode;
+    }
+
+
+    public function resetUser($account) {
+        $user_id = Dbase::dbGetFieldById('tm_user', 'user_id', 'user_account', $account);
+        if($user_id != "") {
+            $rst = DB::table('tm_user')
+                ->where('user_id', $user_id)
+                ->update([
+                    "user_count"  => 0,
+                    "user_status" => 1
+                ]); 
+        }
+        else {
+            $rst = 0;
+        }
+            
+        return response()->json([
+            'status'    => Init::responseStatus($rst),
+            'message'   => Init::responseMessage($rst, 'Logout'),
+            'data'      => array()],
+            200
+        );
     }
 }
