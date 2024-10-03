@@ -110,7 +110,7 @@ class AuthController extends Controller
     }
 
     public function response() {
-        $offset = 0;
+        $offset = 100;
         $limit  = 100;
         $satkers = DB::table('tm_satker')->skip($offset)->take($limit)->get();
         
