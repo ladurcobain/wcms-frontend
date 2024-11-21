@@ -14,7 +14,7 @@ class AboutLogoController extends Controller
 {
     private $title = "Tentang Kami";
     private $subtitle = "Logo & Makna";
-    private $path = 'home/logo/search';
+    private $path = 'about/logo/search';
 
     /**
      * Display a listing of the resource.

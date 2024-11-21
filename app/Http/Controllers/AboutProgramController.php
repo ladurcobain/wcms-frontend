@@ -14,7 +14,7 @@ class AboutProgramController extends Controller
 {
     private $title = "Tentang Kami";
     private $subtitle = "Program Kerja JA";
-    private $path = 'home/program/search';
+    private $path = 'about/program/search';
 
     /**
      * Display a listing of the resource.

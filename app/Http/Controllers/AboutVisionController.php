@@ -14,7 +14,7 @@ class AboutVisionController extends Controller
 {
     private $title = "Tentang Kami";
     private $subtitle = "Visi & Misi";
-    private $path = 'home/vision/search';
+    private $path = 'about/vision/search';
 
     /**
      * Display a listing of the resource.

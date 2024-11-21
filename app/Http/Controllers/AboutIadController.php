@@ -14,7 +14,7 @@ class AboutIadController extends Controller
 {
     private $title = "Tentang Kami";
     private $subtitle = "I.A.D";
-    private $path = 'home/iad/search';
+    private $path = 'about/iad/search';
 
     /**
      * Display a listing of the resource.

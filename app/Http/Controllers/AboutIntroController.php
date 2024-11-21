@@ -14,7 +14,7 @@ class AboutIntroController extends Controller
 {
     private $title = "Tentang Kami";
     private $subtitle = "Kata Sambutan";
-    private $path = 'home/intro/search';
+    private $path = 'about/intro/search';
 
     /**
      * Display a listing of the resource.

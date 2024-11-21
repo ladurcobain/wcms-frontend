@@ -14,7 +14,7 @@ class AboutInfoController extends Controller
 {
     private $title = "Tentang Kami";
     private $subtitle = "Tentang Kejaksaan";
-    private $path = 'home/info/search';
+    private $path = 'about/info/search';
 
     /**
      * Display a listing of the resource.

@@ -14,7 +14,7 @@ class AboutStoryController extends Controller
 {
     private $title = "Tentang Kami";
     private $subtitle = "Sejarah Kejaksaan";
-    private $path = 'home/story/search';
+    private $path = 'about/story/search';
 
     /**
      * Display a listing of the resource.

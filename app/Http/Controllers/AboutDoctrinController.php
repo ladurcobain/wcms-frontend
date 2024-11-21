@@ -14,7 +14,7 @@ class AboutDoctrinController extends Controller
 {
     private $title = "Tentang Kami";
     private $subtitle = "Doktrin Adhyaksa";
-    private $path = 'home/doctrin/search';
+    private $path = 'about/doctrin/search';
 
     /**
      * Display a listing of the resource.
