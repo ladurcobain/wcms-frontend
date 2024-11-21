@@ -14,7 +14,7 @@ class AboutCommandController extends Controller
 {
     private $title = "Tentang Kami";
     private $subtitle = "Perintah Harian JA";
-    private $path = 'home/command/search';
+    private $path = 'about/command/search';
 
     /**
      * Display a listing of the resource.
