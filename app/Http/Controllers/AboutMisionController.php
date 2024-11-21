@@ -14,7 +14,7 @@ class AboutMisionController extends Controller
 {
     private $title = "Tentang Kami";
     private $subtitle = "Tugas & Wewenang";
-    private $path = 'about/mission/search';
+    private $path = 'about/mision/search';
 
     /**
      * Display a listing of the resource.
