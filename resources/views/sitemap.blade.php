@@ -50,58 +50,63 @@
 		<!-- start: page -->
 		<section class="body-sign body-locked">
 
-<div class="col-lg-12 col-md-12">
-    <div class="row">
-        <div class="col-lg-12">
-            <section class="card card-featured card-featured-primary mb-4">
-                <header class="card-header">
-                    <div class="card-actions">
-                        <a href="javascript:void(0);" class="card-action card-action-toggle" data-card-toggle></a>
-                    </div>
-                    <h2 class="card-title">Daftar Satuan Kerja</h2>
-                </header>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-striped mb-0" id="dtTable" data-plugin-options='{"searchPlaceholder": "Pencarian ..."}' style="width:100%">
-                            <thead>
-                                <tr>
-                                    <th width="5%">Kode</th>
-                                    <th width="7%">Tipe</th>
-                                    <th width="25%">Nama Satker</th>
-                                    <th width="10%">Aktivitas terkini</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php if(count($list) > 0) { ?>
-                                <?php foreach ($list as $row) { ?>
-                                <tr>
-                                    <td class="center">{{ $row->satker_code }}</td>
-                                    <td class="center">{{ Status::tipeSatker($row->satker_type) }}</td>
-                                    <td><a target="_blank" href="{{ $row->satker_url }}">{{ $row->satker_name }}</a></td>
-                                    <td class="center">{{ $row->updated_at }}</td>
-                                </tr>
-                                <?php } ?>
-                                <?php } else { ?>
-                                <tr><td colspan="4" align="center">
-                                    <p class="description">
-                                        <i class="fas fa-exclamation-triangle fa-fw text-warning text-5 va-middle"></i>
-                                        <span class="va-middle">Data tidak ditemukan.</span>
-                                    </p>
-                                </tr>
-                                <?php } ?>
-                            </tbody>
-                        </table>
+            <div class="col-lg-12 col-md-12">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <section class="card card-featured card-featured-primary mb-4">
+                            <header class="card-header">
+                                <div class="card-actions">
+                                    <form id="frmSitemapExport" action="{{route('sitemap.excell')}}" method="post">
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                                        <button type="submit" class="mb-1 mt-1 me-1 btn btn-primary pull-right btn-sm">Unduh <i class="fas fa-download"></i></button>
+                                    </form>
+                                </div>
+                                <h2 class="card-title">Daftar Satuan Kerja</h2>
+                            </header>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped mb-0" id="dtTable" data-plugin-options='{"searchPlaceholder": "Pencarian ..."}' style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th width="5%">Kode</th>
+                                                <th width="7%">Tipe</th>
+                                                <th width="25%">Nama Satker</th>
+                                                <th width="10%">Aktivitas terkini</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php if(count($list) > 0) { ?>
+                                            <?php foreach ($list as $row) { ?>
+                                            <tr>
+                                                <td class="center">{{ $row->satker_code }}</td>
+                                                <td class="center">{{ Status::tipeSatker($row->satker_type) }}</td>
+                                                <td><a target="_blank" href="{{ $row->satker_url }}">{{ $row->satker_name }}</a></td>
+                                                <td class="center">{{ $row->updated_at }}</td>
+                                            </tr>
+                                            <?php } ?>
+                                            <?php } else { ?>
+                                            <tr>
+                                                <td colspan="4" align="center">
+                                                    <p class="description">
+                                                        <i class="fas fa-exclamation-triangle fa-fw text-warning text-5 va-middle"></i>
+                                                        <span class="va-middle">Data tidak ditemukan.</span>
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                            <?php } ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </section>
                     </div>
                 </div>
-            </section>
-        </div>
-    </div>
-    <p class="text-center text-muted mt-3 mb-3">&copy; Hak Cipta 2023. Kejaksaan Republik Indonesia.</p>
-</div>
-<!-- end: page -->
+                <p class="text-center text-muted mt-3 mb-3">&copy; Hak Cipta 2023. Kejaksaan Republik Indonesia.</p>
+            </div>
+            <!-- end: page -->
 
-    </section>
-		<!-- end: page -->
+        </section>
+            <!-- end: page -->
         
         <!-- Vendor -->
         <script src="{{ asset('assets/vendor/jquery/jquery.js') }}"></script>

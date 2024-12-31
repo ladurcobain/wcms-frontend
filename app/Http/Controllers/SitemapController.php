@@ -1,9 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Helpers\Curl;
+use App\Helpers\Status;
 use Session;
+use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\SitemapExcell;
 
 class SitemapController extends Controller
 {
@@ -24,5 +27,10 @@ class SitemapController extends Controller
         $data['list']    = $res->data;
         
         return view('sitemap', $data);
+    }
+
+    public function excell(Request $request)
+    {
+        return Excel::download(new SitemapExcell(), 'satkers.xlsx');
     }
 }

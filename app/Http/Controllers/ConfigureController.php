@@ -77,6 +77,8 @@ class ConfigureController extends Controller
             'satker_id'     => $request->satker_id,
             'status'        => (($request->status == 1)? 1:0),
             'url'           => $request->url,
+            'code'          => $request->code,
+            'akronim'       => $request->akronim,
             'name'          => $request->name,
             'phone'         => $request->phone,
             'email'         => $request->email,

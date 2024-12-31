@@ -60,6 +60,12 @@
                                                 </div>
                                             </div>
                                             <div class="form-group row pt-3 pb-2">
+                                                <label class="col-sm-3 control-label text-sm-end pt-2">Akronim</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" value="{{ $info->satker_akronim }}" class="form-control"readonly />
+                                                </div>
+                                            </div>
+                                            <div class="form-group row pt-3 pb-2">
                                                 <label class="col-sm-3 control-label text-sm-end pt-2">Nama</label>
                                                 <div class="col-sm-9">
                                                     <input type="text" value="{{ $info->satker_name }}" class="form-control"readonly />

@@ -120,6 +120,8 @@ class MasterSatkerController extends Controller
         $url = $uri .'/'.'satker/insert-data';
         
         $param = array(
+            'code'          => $request->code,
+            'akronim'       => $request->akronim,
             'name'          => $request->name,
             'phone'         => $request->phone,
             'email'         => $request->email,
@@ -226,6 +228,8 @@ class MasterSatkerController extends Controller
         $param = array(
             'satker_id'     => $request->satker_id,
             'status'        => (($request->status == 1)? 1:0),
+            'code'          => $request->code,
+            'akronim'       => $request->akronim,
             'name'          => $request->name,
             'phone'         => $request->phone,
             'email'         => $request->email,

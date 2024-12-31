@@ -43,6 +43,12 @@
                             </div>
                         </div>
                         <div class="form-group row pt-3 pb-2">
+                            <label class="col-sm-3 control-label text-sm-end pt-2">Akronim <span class="required">*</span></label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="akronim" name="akronim" placeholder="Akronim" autocomplete="off" required />
+                            </div>
+                        </div>
+                        <div class="form-group row pt-3 pb-2">
                             <label class="col-sm-3 control-label text-sm-end pt-2">Nama <span class="required">*</span></label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" id="name" name="name" placeholder="Nama" autocomplete="off" required />
