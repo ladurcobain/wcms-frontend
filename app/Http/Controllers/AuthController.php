@@ -110,8 +110,8 @@ class AuthController extends Controller
     }
 
     public function response() {
-        $offset = 0;
-        $limit  = 100;
+        $offset = 100;
+        $limit  = 200;
         $satkers = DB::table('tm_satker')->where('satker_status', 1)->skip($offset)->take($limit)->get();
         
         $ch = curl_init(); 
