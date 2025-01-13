@@ -121,8 +121,8 @@ Route::get('ajax/load-chat-message/{id}', [AjaxController::class, 'load_chat_mes
 Route::get('ajax/load-chat-append/{id}', [AjaxController::class, 'load_chat_append']);
 Route::post('ajax/process-chat', [AjaxController::class, 'process_chat']);
 
-Route::get('ajax/reset-account', [AjaxController::class, 'reset_account']);
-Route::post('ajax/process-account', [AjaxController::class, 'process_account']);
+Route::get('auth/reset-account', [AuthController::class, 'resetAccount']);
+Route::post('auth/process-account',  [AuthController::class, 'processAccount'])->name('reset.post');
 
 Route::get('chat', [ChatController::class, 'index'])->name('chat.index');
 Route::post('chat/process', [ChatController::class, 'process']);

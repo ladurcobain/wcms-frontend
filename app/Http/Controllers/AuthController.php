@@ -110,8 +110,8 @@ class AuthController extends Controller
     }
 
     public function response() {
-        $offset = 300;
-        $limit  = 400;
+        $offset = 400;
+        $limit  = 500;
         $satkers = DB::table('tm_satker')->skip($offset)->take($limit)->get();
         
         $ch = curl_init(); 
@@ -137,25 +137,62 @@ class AuthController extends Controller
     }
 
 
-    public function resetUser($account) {
-        $user_id = Dbase::dbGetFieldById('tm_user', 'user_id', 'user_account', $account);
-        if($user_id != "") {
+    // public function resetUser($account) {
+    //     $user_id = Dbase::dbGetFieldById('tm_user', 'user_id', 'user_account', $account);
+    //     if($user_id != "") {
+    //         $rst = DB::table('tm_user')
+    //             ->where('user_id', $user_id)
+    //             ->update([
+    //                 "user_count"  => 0,
+    //                 "user_status" => 1
+    //             ]); 
+    //     }
+    //     else {
+    //         $rst = 0;
+    //     }
+            
+    //     return response()->json([
+    //         'status'    => Init::responseStatus($rst),
+    //         'message'   => Init::responseMessage($rst, 'Logout'),
+    //         'data'      => array()],
+    //         200
+    //     );
+    // }
+
+
+    public function resetAccount()
+    {
+        if (Session::get('login')) {
+            return redirect()->route('dashboard.index');
+        }
+
+        return view('auth.reset');
+    }
+
+    public function processAccount(Request $request)
+    {
+        $account = $request->input('username');
+        if($account != "") {
             $rst = DB::table('tm_user')
-                ->where('user_id', $user_id)
+                ->where('user_account', $account)
                 ->update([
                     "user_count"  => 0,
                     "user_status" => 1
                 ]); 
+
+            $rst = 1;
         }
         else {
             $rst = 0;
         }
             
         return response()->json([
-            'status'    => Init::responseStatus($rst),
-            'message'   => Init::responseMessage($rst, 'Logout'),
+            'status'    => $rst,
+            'message'   => "Proses ". (($rst == 1)?'Berhasil':'Gagal'),
             'data'      => array()],
             200
         );
+
+        return redirect('auth/reset-account')->with('alert', $res->message);
     }
 }
