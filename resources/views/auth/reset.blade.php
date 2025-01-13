@@ -51,8 +51,8 @@
 								<img src="{{ asset('assets/img/logo/kejaksaan-logo.jpg') }}" alt="Webphada" class="user-image" style="background-color: white;width: 150px;padding:10px;" />
 								
 								@if (session()->has('alert'))
-                                    <div class="alert alert-danger alert-dismissible d-flex align-items-center fade show" role="alert">
-										<i class='bx bxs-error bx-flashing bx-sm me-2' style='color:#F30606'></i> {{ session()->get('alert') }}
+                                    <div class="alert alert-warning alert-dismissible d-flex align-items-center fade show" role="alert">
+										<i class='bx bxs-info bx-flashing bx-sm me-2' style='color:#F30606'></i> {{ session()->get('alert') }}
                                         <button type="button" class="btn-close" data-bs-dismiss=" alert" aria-label="Close"></button>
                                     </div>
                                 @endif

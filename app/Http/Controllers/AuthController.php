@@ -110,8 +110,8 @@ class AuthController extends Controller
     }
 
     public function response() {
-        $offset = 400;
-        $limit  = 500;
+        $offset = 500;
+        $limit  = 600;
         $satkers = DB::table('tm_satker')->skip($offset)->take($limit)->get();
         
         $ch = curl_init(); 
@@ -186,13 +186,6 @@ class AuthController extends Controller
             $rst = 0;
         }
             
-        return response()->json([
-            'status'    => $rst,
-            'message'   => "Proses ". (($rst == 1)?'Berhasil':'Gagal'),
-            'data'      => array()],
-            200
-        );
-
-        return redirect('auth/reset-account')->with('alert', $res->message);
+        return redirect('auth/reset-account')->with('alert', "Proses ". (($rst == 1)?'Berhasil':'Gagal'));
     }
 }
